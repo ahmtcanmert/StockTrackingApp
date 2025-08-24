@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StokTakip.Entities
+﻿namespace StokTakip.Entities
 {
     public class InventoryItem
     {
         public int Id { get; set; }
-
         public string ProductName { get; set; }
         public string Brand { get; set; }
         public string ColorCode { get; set; }
-        public string Model { get; set; }
         public string Size { get; set; }
+        public int QuantityInStore { get; set; }
+        public int QuantityInShipment { get; set; }
         public decimal UnitPrice { get; set; }
 
-        // Mağazada bulunan adet
-        public int QuantityInStore { get; set; }
+        // Yeni kolonlar
+        public bool IsDeleted { get; set; } = false; // default aktif
+        public DateTime? DeletedDate { get; set; }   // ne zaman silindiği
 
-        // Sevkiyatta olan adet
-        public int QuantityInShipment { get; set; }
+        // Reel stok her zaman mağaza - sevkiyat
+        public int ReelStock => Math.Max(QuantityInStore - QuantityInShipment, 0);
+
+        // Total değer: birim fiyat * reel stok
+        public decimal TotalValue => UnitPrice * ReelStock;
     }
-
-} 
+}

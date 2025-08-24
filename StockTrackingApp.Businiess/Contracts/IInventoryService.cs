@@ -10,7 +10,9 @@ namespace StockTrackingApp.Business
         void AddItem(InventoryItem item);
         void UpdateItem(InventoryItem item);
         void DeleteItem(int id);
-        string DecreaseStock(int id, int quantity);
-        void IncreaseStock(int id, int quantity);
+        void IncreaseStoreStock(int id, int quantity);
+        void DecreaseStoreStock(int id, int quantity);
+        void IncreaseShipmentStock(int id, int quantity);
+        void DecreaseShipmentStock(int id, int quantity);
     }
 }

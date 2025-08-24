@@ -18,6 +18,7 @@ namespace StokTakip.Entities.Repository
         void DecreaseStoreStock(int id, int quantity);
         void IncreaseShipmentStock(int id, int quantity);
         void DecreaseShipmentStock(int id, int quantity);
+        void ReduceStockFromStoreAndShipment(int id, int quantity);
 
     }
 }

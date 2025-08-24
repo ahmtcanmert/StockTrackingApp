@@ -25,6 +25,10 @@ namespace StockTrackingApp.DataAccess
             var item = _context.InventoryItems.Find(id);
             if (item != null) _context.InventoryItems.Remove(item);
         }
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
         public void IncreaseStoreStock(int id, int quantity)
         {
             var item = _context.InventoryItems.Find(id);
@@ -39,7 +43,7 @@ namespace StockTrackingApp.DataAccess
         public void DecreaseStoreStock(int id, int quantity)
         {
             var item = _context.InventoryItems.Find(id);
-            if (item != null && item.QuantityInStore >= quantity)
+            if (item != null && item.QuantityInStore >= quantity && item.ReelStock >= quantity)
             {
                 item.QuantityInStore -= quantity;
                 _context.SaveChanges();
@@ -50,7 +54,8 @@ namespace StockTrackingApp.DataAccess
         public void IncreaseShipmentStock(int id, int quantity)
         {
             var item = _context.InventoryItems.Find(id);
-            if (item != null)
+            var reelStock = item.ReelStock;
+            if (item != null && reelStock >= quantity)
             {
                 item.QuantityInShipment += quantity;
                 _context.SaveChanges();
@@ -67,5 +72,40 @@ namespace StockTrackingApp.DataAccess
                 _context.SaveChanges();
             }
         }
+        public int ReelStock(int id)
+        {
+            var item = _context.InventoryItems.Find(id);
+            if (item != null) 
+            {
+                var reelStock=item.QuantityInStore - item.QuantityInShipment;
+                return reelStock;
+            }
+            return -1;
+            
+        }
+
+        public void ReduceStockFromStoreAndShipment(int id, int quantity)
+        {
+            var item = _context.InventoryItems.Find(id);
+            if (item == null)
+            {
+                Console.WriteLine("Ürün bulunamadı.");
+                return;
+            }
+
+            if (item.QuantityInStore < quantity || item.QuantityInShipment < quantity)
+            {
+                Console.WriteLine("Yeterli stok yok!");
+                return;
+            }
+
+            item.QuantityInStore -= quantity;
+            item.QuantityInShipment -= quantity;
+
+            Console.WriteLine($"{item.ProductName} - {item.Brand} stokları güncellendi. " +
+                              $"Mağaza: {item.QuantityInStore}, Sevkiyat: {item.QuantityInShipment}");
+        }
+
+
     }
 }

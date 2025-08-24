@@ -19,6 +19,11 @@ namespace StokTakip.DataAccess
             optionsBuilder.UseSqlServer(
                 @"Data Source = CAN\AHMETCANPC; Database = StockDb; Integrated Security = True; TrustServerCertificate = True");
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Soft delete filter
+            modelBuilder.Entity<InventoryItem>().HasQueryFilter(p => !p.IsDeleted);
+        }
 
     }
 }

@@ -32,18 +32,49 @@ namespace StockTrackingApp.Business
 
         public void DeleteItem(int id)
         {
-            _repository.Delete(id);
+            var entity = _repository.GetById(id);
+            if (entity != null)
+            {
+                entity.IsDeleted = true; // Soft delete
+                _repository.Update(entity);
+                _repository.Save();
+
+            }
+        }
+
+        public void IncreaseStoreStock(int id, int quantity)
+        {
+            _repository.IncreaseStoreStock(id, quantity);
+            _repository.Save();
+
+        }
+
+        public void DecreaseStoreStock(int id, int quantity)
+        {
+            _repository.DecreaseStoreStock(id, quantity);
+            _repository.Save();
+
+        }
+
+        public void IncreaseShipmentStock(int id, int quantity)
+        {
+            _repository.IncreaseShipmentStock(id, quantity);
             _repository.Save();
         }
 
-        public string DecreaseStock(int id, int quantity)
+        public void DecreaseShipmentStock(int id, int quantity)
         {
-            throw new NotImplementedException();
-        }
+            _repository.DecreaseShipmentStock(id, quantity);    
+            _repository.Save();
 
-        public void IncreaseStock(int id, int quantity)
-        {
-            throw new NotImplementedException();
         }
+        public int ReelStock(int id,int quantity) 
+        { 
+            _repository.ReduceStockFromStoreAndShipment(id, quantity);
+            var item=GetItemById(id);
+            var reelStock=item.QuantityInStore-item.QuantityInShipment;
+            return reelStock;
+        }
+ 
     }
 }
