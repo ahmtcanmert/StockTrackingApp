@@ -34,7 +34,14 @@ class Program
 
 
 
-        Application.Run(new Form1(manager));
+        using (var loginForm = new LoginForm(manager))
+        {
+            if (loginForm.ShowDialog() == DialogResult.OK)
+            {
+                // Eðer giriþ baþarýlý ise ana formu aç
+                Application.Run(new MainForm(manager));
+            }
+        }
 
     }
 }

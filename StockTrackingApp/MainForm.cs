@@ -3,21 +3,22 @@ using StokTakip.Entities;
 
 namespace StockTrackingApp
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private InventoryManager _manager;
         private int _selectedItemId = -1;
         private int _previousRowIndex = -1; // Önceki seçili satır
 
 
-        public Form1(InventoryManager manager)
+        public MainForm(InventoryManager manager)
         {
             InitializeComponent();
             _manager = manager;
+
             LoadForm();
 
         }
-
+   
         private void LoadForm()
         {
             dgTablo.DataSource = null;
@@ -312,5 +313,7 @@ namespace StockTrackingApp
                 ); ;
             }
         }
+
+
     }
 }

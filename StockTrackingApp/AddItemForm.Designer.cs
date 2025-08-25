@@ -48,10 +48,10 @@
             tableLayoutPanel1.ColumnCount = 7;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 105F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 169F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 43F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 104F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 166F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 277F));
             tableLayoutPanel1.Controls.Add(label1, 2, 2);
             tableLayoutPanel1.Controls.Add(label2, 2, 3);
@@ -83,7 +83,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(177, 82);
+            label1.Location = new Point(195, 82);
             label1.Name = "label1";
             label1.Size = new Size(40, 20);
             label1.TabIndex = 0;
@@ -92,7 +92,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(177, 116);
+            label2.Location = new Point(195, 116);
             label2.Name = "label2";
             label2.Size = new Size(50, 20);
             label2.TabIndex = 1;
@@ -101,7 +101,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(177, 150);
+            label3.Location = new Point(195, 150);
             label3.Name = "label3";
             label3.Size = new Size(80, 20);
             label3.TabIndex = 2;
@@ -110,7 +110,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(177, 184);
+            label4.Location = new Point(195, 184);
             label4.Name = "label4";
             label4.Size = new Size(39, 20);
             label4.TabIndex = 3;
@@ -119,7 +119,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(177, 221);
+            label5.Location = new Point(195, 221);
             label5.Name = "label5";
             label5.Size = new Size(40, 20);
             label5.TabIndex = 4;
@@ -127,28 +127,28 @@
             // 
             // tbUrunAdi
             // 
-            tbUrunAdi.Location = new Point(313, 85);
+            tbUrunAdi.Location = new Point(329, 85);
             tbUrunAdi.Name = "tbUrunAdi";
             tbUrunAdi.Size = new Size(125, 27);
             tbUrunAdi.TabIndex = 6;
             // 
             // tbMarka
             // 
-            tbMarka.Location = new Point(313, 119);
+            tbMarka.Location = new Point(329, 119);
             tbMarka.Name = "tbMarka";
             tbMarka.Size = new Size(125, 27);
             tbMarka.TabIndex = 7;
             // 
             // tbRenkKodu
             // 
-            tbRenkKodu.Location = new Point(313, 153);
+            tbRenkKodu.Location = new Point(329, 153);
             tbRenkKodu.Name = "tbRenkKodu";
             tbRenkKodu.Size = new Size(125, 27);
             tbRenkKodu.TabIndex = 8;
             // 
             // tbEbat
             // 
-            tbEbat.Location = new Point(313, 187);
+            tbEbat.Location = new Point(329, 187);
             tbEbat.Name = "tbEbat";
             tbEbat.Size = new Size(125, 27);
             tbEbat.TabIndex = 9;
@@ -156,7 +156,7 @@
             // 
             // tbFiyat
             // 
-            tbFiyat.Location = new Point(313, 224);
+            tbFiyat.Location = new Point(329, 224);
             tbFiyat.Name = "tbFiyat";
             tbFiyat.Size = new Size(125, 27);
             tbFiyat.TabIndex = 10;
@@ -164,7 +164,7 @@
             // 
             // bUrunEkle
             // 
-            bUrunEkle.Location = new Point(313, 267);
+            bUrunEkle.Location = new Point(329, 267);
             bUrunEkle.Name = "bUrunEkle";
             bUrunEkle.Size = new Size(94, 29);
             bUrunEkle.TabIndex = 5;
@@ -178,7 +178,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(tableLayoutPanel1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "AddItemForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "UrunEkleme";
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();

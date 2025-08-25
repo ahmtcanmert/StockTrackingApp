@@ -1,6 +1,6 @@
 ﻿namespace StockTrackingApp
 {
-    partial class Login
+    partial class LoginForm
     {
         /// <summary>
         /// Required designer variable.
@@ -32,8 +32,8 @@
             button1 = new Button();
             label1 = new Label();
             label2 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
+            tbName = new TextBox();
+            tbPassword = new TextBox();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -50,8 +50,8 @@
             tableLayoutPanel1.Controls.Add(button1, 3, 4);
             tableLayoutPanel1.Controls.Add(label1, 1, 2);
             tableLayoutPanel1.Controls.Add(label2, 1, 3);
-            tableLayoutPanel1.Controls.Add(textBox1, 2, 2);
-            tableLayoutPanel1.Controls.Add(textBox2, 2, 3);
+            tableLayoutPanel1.Controls.Add(tbName, 2, 2);
+            tableLayoutPanel1.Controls.Add(tbPassword, 2, 3);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -74,6 +74,7 @@
             button1.TabIndex = 0;
             button1.Text = "Giriş";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // label1
             // 
@@ -93,29 +94,32 @@
             label2.TabIndex = 2;
             label2.Text = "Şifre";
             // 
-            // textBox1
+            // tbName
             // 
-            tableLayoutPanel1.SetColumnSpan(textBox1, 2);
-            textBox1.Location = new Point(319, 169);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(197, 27);
-            textBox1.TabIndex = 3;
+            tableLayoutPanel1.SetColumnSpan(tbName, 2);
+            tbName.Location = new Point(319, 169);
+            tbName.Name = "tbName";
+            tbName.Size = new Size(197, 27);
+            tbName.TabIndex = 3;
             // 
-            // textBox2
+            // tbPassword
             // 
-            tableLayoutPanel1.SetColumnSpan(textBox2, 2);
-            textBox2.Location = new Point(319, 213);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(197, 27);
-            textBox2.TabIndex = 4;
+            tableLayoutPanel1.SetColumnSpan(tbPassword, 2);
+            tbPassword.Location = new Point(319, 213);
+            tbPassword.Name = "tbPassword";
+            tbPassword.Size = new Size(197, 27);
+            tbPassword.TabIndex = 4;
             // 
-            // Login
+            // LoginForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(tableLayoutPanel1);
-            Name = "Login";
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            Name = "LoginForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
@@ -128,7 +132,7 @@
         private Button button1;
         private Label label1;
         private Label label2;
-        private TextBox textBox1;
-        private TextBox textBox2;
+        private TextBox tbName;
+        private TextBox tbPassword;
     }
 }
