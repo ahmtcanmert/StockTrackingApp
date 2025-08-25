@@ -32,15 +32,10 @@ namespace StockTrackingApp.Business
 
         public void DeleteItem(int id)
         {
-            var entity = _repository.GetById(id);
-            if (entity != null)
-            {
-                entity.IsDeleted = true; // Soft delete
-                _repository.Update(entity);
-                _repository.Save();
-
-            }
+            _repository.SoftDelete(id);
+            _repository.Save();
         }
+
 
         public void IncreaseStoreStock(int id, int quantity)
         {

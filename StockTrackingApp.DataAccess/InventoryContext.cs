@@ -13,6 +13,7 @@ namespace StokTakip.DataAccess
     public class InventoryContext : DbContext
     {
         public DbSet<InventoryItem> InventoryItems { get; set; }
+        public DbSet<InventoryLog> InventoryLogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

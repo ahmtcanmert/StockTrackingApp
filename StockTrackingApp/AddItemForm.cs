@@ -1,4 +1,5 @@
-﻿using StockTrackingApp.Business;
+﻿using Microsoft.IdentityModel.Tokens;
+using StockTrackingApp.Business;
 using StokTakip.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,40 +22,64 @@ namespace StockTrackingApp
             _manager = manager;
 
         }
-
+        private bool AreTextBoxesFilled(params TextBox[] textBoxes)
+        {
+            foreach (var tb in textBoxes)
+            {
+                if (string.IsNullOrWhiteSpace(tb.Text)) // boş ya da sadece space ise
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         private void bUrunEkle_Click(object sender, EventArgs e)
         {
-            try
+            if (!AreTextBoxesFilled(tbUrunAdi, tbMarka, tbRenkKodu, tbEbat, tbFiyat))
             {
-                string productName = tbUrunAdi.Text.Trim();
-                string brand = tbMarka.Text.Trim();
-                string colorCode = tbRenkKodu.Text.Trim();
-                string size = tbEbat.Text.Trim();
-                decimal unitPrice = decimal.Parse(tbFiyat.Text.Trim());
-                int quantityInStore = 0; //int.Parse(tbMağazaStok.Text.Trim());
-                int quantityInShipment = 0; // int.Parse(tbSevkiyatStok.Text.Trim());
-
-                // Yeni InventoryItem oluştur
-                InventoryItem newItem = new InventoryItem
-                {
-                    ProductName = productName,
-                    Brand = brand,
-                    ColorCode = colorCode,
-                    Size = size,
-                    UnitPrice = unitPrice,
-                    QuantityInStore = quantityInStore,
-                    QuantityInShipment = quantityInShipment
-                };
-
-                // Manager üzerinden ekle
-                _manager.AddItem(newItem);
-                clearTextBox();
-                MessageBox.Show("Ürün başarıyla eklendi!");
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-
+                MessageBox.Show(
+                    "Lütfen tüm alanları doldurun!",
+                    "Uyarı",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
             }
-            catch (Exception ex) { MessageBox.Show("Hata: " + ex.Message); }
+            else
+            {
+                try
+                {
+                    string productName = tbUrunAdi.Text.Trim();
+                    string brand = tbMarka.Text.Trim();
+                    string colorCode = tbRenkKodu.Text.Trim();
+                    string size = tbEbat.Text.Trim();
+                    decimal unitPrice = decimal.Parse(tbFiyat.Text.Trim());
+                    int quantityInStore = 0; //int.Parse(tbMağazaStok.Text.Trim());
+                    int quantityInShipment = 0; // int.Parse(tbSevkiyatStok.Text.Trim());
+
+                    // Yeni InventoryItem oluştur
+                    InventoryItem newItem = new InventoryItem
+                    {
+                        ProductName = productName,
+                        Brand = brand,
+                        ColorCode = colorCode,
+                        Size = size,
+                        UnitPrice = unitPrice,
+                        QuantityInStore = quantityInStore,
+                        QuantityInShipment = quantityInShipment
+                    };
+
+                    // Manager üzerinden ekle
+                    _manager.AddItem(newItem);
+                    clearTextBox();
+                    MessageBox.Show("Ürün başarıyla eklendi!");
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+
+                }
+                catch (Exception ex) { MessageBox.Show("Hata: " + ex.Message); }
+            }
+               
 
         }
         public void clearTextBox()

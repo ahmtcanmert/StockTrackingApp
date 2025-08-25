@@ -12,8 +12,8 @@ using StokTakip.DataAccess;
 namespace StockTrackingApp.DataAccess.Migrations
 {
     [DbContext(typeof(InventoryContext))]
-    [Migration("20250824094839_IntialCreate")]
-    partial class IntialCreate
+    [Migration("20250824162255_LogIntialCreate")]
+    partial class LogIntialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,6 +67,51 @@ namespace StockTrackingApp.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("InventoryItems");
+                });
+
+            modelBuilder.Entity("StokTakip.Entities.InventoryLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("ActionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ActionType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("InventoryItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuantityChanged")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShipmentStockAfter")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StoreStockAfter")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InventoryItemId");
+
+                    b.ToTable("InventoryLogs");
+                });
+
+            modelBuilder.Entity("StokTakip.Entities.InventoryLog", b =>
+                {
+                    b.HasOne("StokTakip.Entities.InventoryItem", "InventoryItem")
+                        .WithMany()
+                        .HasForeignKey("InventoryItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("InventoryItem");
                 });
 #pragma warning restore 612, 618
         }

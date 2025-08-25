@@ -13,6 +13,7 @@ namespace StokTakip.Entities.Repository
         void Add(InventoryItem item);
         void Update(InventoryItem item);
         void Delete(int id);
+        public void SoftDelete(int id);
         void Save();
         void IncreaseStoreStock(int id, int quantity);
         void DecreaseStoreStock(int id, int quantity);

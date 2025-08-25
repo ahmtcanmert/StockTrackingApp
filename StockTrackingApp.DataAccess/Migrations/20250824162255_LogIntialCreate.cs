@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StockTrackingApp.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class IntialCreate : Migration
+    public partial class LogIntialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,11 +31,43 @@ namespace StockTrackingApp.DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_InventoryItems", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "InventoryLogs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InventoryItemId = table.Column<int>(type: "int", nullable: false),
+                    ActionType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    QuantityChanged = table.Column<int>(type: "int", nullable: false),
+                    StoreStockAfter = table.Column<int>(type: "int", nullable: false),
+                    ShipmentStockAfter = table.Column<int>(type: "int", nullable: false),
+                    ActionDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InventoryLogs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InventoryLogs_InventoryItems_InventoryItemId",
+                        column: x => x.InventoryItemId,
+                        principalTable: "InventoryItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InventoryLogs_InventoryItemId",
+                table: "InventoryLogs",
+                column: "InventoryItemId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "InventoryLogs");
+
             migrationBuilder.DropTable(
                 name: "InventoryItems");
         }

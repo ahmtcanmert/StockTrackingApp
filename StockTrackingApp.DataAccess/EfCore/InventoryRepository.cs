@@ -13,22 +13,44 @@ namespace StockTrackingApp.DataAccess
         public InventoryRepository()
         {
             _context = new InventoryContext();
-            _context.Database.EnsureCreated(); // Veritabanını oluşturur (Migration gerektirmez)
+            _context.Database.EnsureCreated(); // Migration olmadan DB açar
         }
 
         public List<InventoryItem> GetAll() => _context.InventoryItems.ToList();
+
         public InventoryItem GetById(int id) => _context.InventoryItems.Find(id);
-        public void Add(InventoryItem item) => _context.InventoryItems.Add(item);
-        public void Update(InventoryItem item) => _context.InventoryItems.Update(item);
+
+        public void Add(InventoryItem item)
+        {
+            _context.InventoryItems.Add(item);
+            _context.SaveChanges();
+
+            AddLog(item.Id, "Yeni Ürün Eklendi", item.QuantityInStore, item.QuantityInShipment, 0);
+        }
+
+        public void Update(InventoryItem item)
+        {
+            _context.InventoryItems.Update(item);
+            _context.SaveChanges();
+
+            AddLog(item.Id, "Ürün Güncellendi", item.QuantityInStore, item.QuantityInShipment, 0);
+        }
+
         public void Delete(int id)
         {
             var item = _context.InventoryItems.Find(id);
-            if (item != null) _context.InventoryItems.Remove(item);
+            if (item != null)
+            {
+                _context.InventoryItems.Remove(item);
+                _context.SaveChanges();
+
+                AddLog(item.Id, "Ürün Silindi", 0, 0, 0);
+            }
         }
-        public void Save()
-        {
-            _context.SaveChanges();
-        }
+
+        public void Save() => _context.SaveChanges();
+
+        // 📈 Mağaza stok artırma
         public void IncreaseStoreStock(int id, int quantity)
         {
             var item = _context.InventoryItems.Find(id);
@@ -36,6 +58,8 @@ namespace StockTrackingApp.DataAccess
             {
                 item.QuantityInStore += quantity;
                 _context.SaveChanges();
+
+                AddLog(item.Id, "Mağaza Stok Artırma", item.QuantityInStore, item.QuantityInShipment, quantity);
             }
         }
 
@@ -43,10 +67,12 @@ namespace StockTrackingApp.DataAccess
         public void DecreaseStoreStock(int id, int quantity)
         {
             var item = _context.InventoryItems.Find(id);
-            if (item != null && item.QuantityInStore >= quantity && item.ReelStock >= quantity)
+            if (item != null && item.QuantityInStore >= quantity)
             {
                 item.QuantityInStore -= quantity;
                 _context.SaveChanges();
+
+                AddLog(item.Id, "Mağaza Stok Azaltma", item.QuantityInStore, item.QuantityInShipment, -quantity);
             }
         }
 
@@ -54,11 +80,12 @@ namespace StockTrackingApp.DataAccess
         public void IncreaseShipmentStock(int id, int quantity)
         {
             var item = _context.InventoryItems.Find(id);
-            var reelStock = item.ReelStock;
-            if (item != null && reelStock >= quantity)
+            if (item != null && item.ReelStock >= quantity)
             {
                 item.QuantityInShipment += quantity;
                 _context.SaveChanges();
+
+                AddLog(item.Id, "Sevkiyat Stok Artırma", item.QuantityInStore, item.QuantityInShipment, quantity);
             }
         }
 
@@ -70,28 +97,16 @@ namespace StockTrackingApp.DataAccess
             {
                 item.QuantityInShipment -= quantity;
                 _context.SaveChanges();
+
+                AddLog(item.Id, "Sevkiyat Stok Azaltma", item.QuantityInStore, item.QuantityInShipment, -quantity);
             }
-        }
-        public int ReelStock(int id)
-        {
-            var item = _context.InventoryItems.Find(id);
-            if (item != null) 
-            {
-                var reelStock=item.QuantityInStore - item.QuantityInShipment;
-                return reelStock;
-            }
-            return -1;
-            
         }
 
+        // 📉 Hem mağaza hem sevkiyat stok azaltma
         public void ReduceStockFromStoreAndShipment(int id, int quantity)
         {
             var item = _context.InventoryItems.Find(id);
-            if (item == null)
-            {
-                Console.WriteLine("Ürün bulunamadı.");
-                return;
-            }
+            if (item == null) return;
 
             if (item.QuantityInStore < quantity || item.QuantityInShipment < quantity)
             {
@@ -101,11 +116,46 @@ namespace StockTrackingApp.DataAccess
 
             item.QuantityInStore -= quantity;
             item.QuantityInShipment -= quantity;
+            _context.SaveChanges();
 
-            Console.WriteLine($"{item.ProductName} - {item.Brand} stokları güncellendi. " +
-                              $"Mağaza: {item.QuantityInStore}, Sevkiyat: {item.QuantityInShipment}");
+            AddLog(item.Id, "Mağaza + Sevkiyat Stok Azaltma", item.QuantityInStore, item.QuantityInShipment, -quantity);
         }
 
+        public int ReelStock(int id)
+        {
+            var item = _context.InventoryItems.Find(id);
+            return item != null ? item.QuantityInStore - item.QuantityInShipment : -1;
+        }
 
+        // ❌ Soft delete
+        public void SoftDelete(int id)
+        {
+            var item = _context.InventoryItems.FirstOrDefault(x => x.Id == id);
+            if (item != null)
+            {
+                item.IsDeleted = true;
+                item.DeletedDate = DateTime.Now;
+                _context.SaveChanges();
+
+                AddLog(item.Id, "Ürün Soft Delete", item.QuantityInStore, item.QuantityInShipment, 0);
+            }
+        }
+
+        // 🔑 Log ekleme helper metodu
+        private void AddLog(int itemId, string actionType, int storeAfter, int shipmentAfter, int quantityChanged)
+        {
+            var log = new InventoryLog
+            {
+                InventoryItemId = itemId,
+                ActionType = actionType,
+                QuantityChanged = quantityChanged,
+                StoreStockAfter = storeAfter,
+                ShipmentStockAfter = shipmentAfter,
+                ActionDate= DateTime.Now
+            };
+
+            _context.InventoryLogs.Add(log);
+            _context.SaveChanges();
+        }
     }
 }
