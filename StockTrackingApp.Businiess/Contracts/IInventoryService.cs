@@ -1,4 +1,5 @@
-﻿using StokTakip.Entities;
+﻿using StockTrackingApp.Entities.DTO;
+using StokTakip.Entities;
 using System.Collections.Generic;
 
 namespace StockTrackingApp.Business
@@ -8,7 +9,7 @@ namespace StockTrackingApp.Business
         List<InventoryItem> GetAllItems();
         InventoryItem GetItemById(int id);
         void AddItem(InventoryItem item);
-        void UpdateItem(InventoryItem item);
+        void UpdateItem(UpdateInventoryItemDto dto);
         void DeleteItem(int id);
         void IncreaseStoreStock(int id, int quantity);
         void DecreaseStoreStock(int id, int quantity);

@@ -14,9 +14,7 @@
         // Kaç adet işlem yapıldı
         public int QuantityChanged { get; set; }
 
-        // İşlem sonrası güncel stok
-        public int StoreStockAfter { get; set; }
-        public int ShipmentStockAfter { get; set; }
+
 
         // İşlemin tarihi
         public DateTime ActionDate { get; set; } = DateTime.Now;

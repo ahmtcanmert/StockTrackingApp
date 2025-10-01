@@ -1,4 +1,5 @@
 ﻿using StockTrackingApp.DataAccess;
+using StockTrackingApp.Entities.DTO;
 using StokTakip.Entities;
 using StokTakip.Entities.Repository;
 using System.Collections.Generic;
@@ -24,9 +25,9 @@ namespace StockTrackingApp.Business
             _repository.Save();
         }
 
-        public void UpdateItem(InventoryItem item)
+        public void UpdateItem(UpdateInventoryItemDto dto)
         {
-            _repository.Update(item);
+            _repository.Update(dto);
             _repository.Save();
         }
 

@@ -42,26 +42,43 @@
             tbGuncelle = new TextBox();
             label1 = new Label();
             bGüncelle = new Button();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            tableLayoutPanel3 = new TableLayoutPanel();
+            tlpMain = new TableLayoutPanel();
+            tlpSevk = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
+            pFiltrele = new Panel();
+            tlpMenu = new TableLayoutPanel();
+            button1 = new Button();
+            bGuncelle = new Button();
+            pFiltreleme = new Panel();
+            tlpFiltre = new TableLayoutPanel();
+            label2 = new Label();
+            tbUrunAdi = new TextBox();
+            label4 = new Label();
+            tbMarka = new TextBox();
+            label6 = new Label();
+            tbRenkKodu = new TextBox();
+            label7 = new Label();
+            tbEbat = new TextBox();
+            bTemizle = new Button();
             ((System.ComponentModel.ISupportInitialize)dgTablo).BeginInit();
-            tableLayoutPanel1.SuspendLayout();
-            tableLayoutPanel3.SuspendLayout();
+            tlpMain.SuspendLayout();
+            tlpSevk.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
+            pFiltrele.SuspendLayout();
+            tlpMenu.SuspendLayout();
+            pFiltreleme.SuspendLayout();
+            tlpFiltre.SuspendLayout();
             SuspendLayout();
             // 
             // bUrunSil
             // 
             bUrunSil.BackColor = Color.Red;
-            tableLayoutPanel3.SetColumnSpan(bUrunSil, 2);
-            bUrunSil.Dock = DockStyle.Fill;
             bUrunSil.ForeColor = Color.White;
-            bUrunSil.Location = new Point(1196, 47);
+            bUrunSil.Location = new Point(11, 261);
             bUrunSil.Name = "bUrunSil";
-            bUrunSil.Size = new Size(88, 36);
+            bUrunSil.Size = new Size(77, 36);
             bUrunSil.TabIndex = 17;
-            bUrunSil.Text = "Ürün Sil";
+            bUrunSil.Text = "Sil";
             bUrunSil.UseVisualStyleBackColor = false;
             bUrunSil.Click += bUrunSil_Click;
             // 
@@ -74,19 +91,17 @@
             dgTablo.Name = "dgTablo";
             dgTablo.ReadOnly = true;
             dgTablo.RowHeadersWidth = 51;
-            dgTablo.Size = new Size(1292, 262);
+            dgTablo.Size = new Size(1268, 354);
             dgTablo.TabIndex = 0;
             dgTablo.CellClick += dgTablo_CellClick;
             // 
             // bUrunEkle
             // 
-            tableLayoutPanel3.SetColumnSpan(bUrunEkle, 2);
-            bUrunEkle.Dock = DockStyle.Fill;
-            bUrunEkle.Location = new Point(1196, 3);
+            bUrunEkle.Location = new Point(11, 197);
             bUrunEkle.Name = "bUrunEkle";
-            bUrunEkle.Size = new Size(88, 38);
+            bUrunEkle.Size = new Size(77, 38);
             bUrunEkle.TabIndex = 16;
-            bUrunEkle.Text = "Ürün Ekle";
+            bUrunEkle.Text = "Ekle";
             bUrunEkle.UseVisualStyleBackColor = true;
             bUrunEkle.Click += bUrunEkle_Click;
             // 
@@ -94,7 +109,7 @@
             // 
             label3.AutoSize = true;
             label3.Dock = DockStyle.Fill;
-            label3.Location = new Point(442, 0);
+            label3.Location = new Point(459, 0);
             label3.Name = "label3";
             label3.Size = new Size(88, 44);
             label3.TabIndex = 8;
@@ -102,14 +117,14 @@
             // 
             // bSevkiyatArttır
             // 
-            bSevkiyatArttır.BackColor = Color.LightGreen;
+            bSevkiyatArttır.BackColor = Color.Green;
             bSevkiyatArttır.Dock = DockStyle.Fill;
             bSevkiyatArttır.ForeColor = SystemColors.ButtonHighlight;
-            bSevkiyatArttır.Location = new Point(536, 47);
+            bSevkiyatArttır.Location = new Point(553, 47);
             bSevkiyatArttır.Name = "bSevkiyatArttır";
             bSevkiyatArttır.Size = new Size(77, 36);
             bSevkiyatArttır.TabIndex = 13;
-            bSevkiyatArttır.Text = "Arttır";
+            bSevkiyatArttır.Text = "GÖNDER";
             bSevkiyatArttır.UseVisualStyleBackColor = false;
             bSevkiyatArttır.Click += bSevkiyatArttır_Click;
             // 
@@ -118,19 +133,19 @@
             bSevkiyatAzalt.BackColor = Color.OrangeRed;
             bSevkiyatAzalt.Dock = DockStyle.Fill;
             bSevkiyatAzalt.ForeColor = SystemColors.ButtonHighlight;
-            bSevkiyatAzalt.Location = new Point(619, 47);
+            bSevkiyatAzalt.Location = new Point(636, 47);
             bSevkiyatAzalt.Name = "bSevkiyatAzalt";
             bSevkiyatAzalt.Size = new Size(77, 36);
             bSevkiyatAzalt.TabIndex = 14;
-            bSevkiyatAzalt.Text = "Azalt";
+            bSevkiyatAzalt.Text = "İPTAL";
             bSevkiyatAzalt.UseVisualStyleBackColor = false;
             bSevkiyatAzalt.Click += bSevkiyatAzalt_Click;
             // 
             // tbSevkiyat
             // 
-            tableLayoutPanel3.SetColumnSpan(tbSevkiyat, 2);
+            tlpSevk.SetColumnSpan(tbSevkiyat, 2);
             tbSevkiyat.Dock = DockStyle.Fill;
-            tbSevkiyat.Location = new Point(536, 3);
+            tbSevkiyat.Location = new Point(553, 3);
             tbSevkiyat.Name = "tbSevkiyat";
             tbSevkiyat.Size = new Size(160, 27);
             tbSevkiyat.TabIndex = 3;
@@ -141,24 +156,24 @@
             bMağazaAzalt.BackColor = Color.OrangeRed;
             bMağazaAzalt.Dock = DockStyle.Fill;
             bMağazaAzalt.ForeColor = SystemColors.ButtonHighlight;
-            bMağazaAzalt.Location = new Point(207, 47);
+            bMağazaAzalt.Location = new Point(266, 47);
             bMağazaAzalt.Name = "bMağazaAzalt";
             bMağazaAzalt.Size = new Size(77, 36);
             bMağazaAzalt.TabIndex = 12;
-            bMağazaAzalt.Text = "Azalt";
+            bMağazaAzalt.Text = "ÇIKART";
             bMağazaAzalt.UseVisualStyleBackColor = false;
             bMağazaAzalt.Click += bMağazaAzalt_Click;
             // 
             // bMağazaArttır
             // 
-            bMağazaArttır.BackColor = Color.LightGreen;
+            bMağazaArttır.BackColor = Color.Green;
             bMağazaArttır.Dock = DockStyle.Fill;
             bMağazaArttır.ForeColor = SystemColors.ButtonHighlight;
-            bMağazaArttır.Location = new Point(124, 47);
+            bMağazaArttır.Location = new Point(183, 47);
             bMağazaArttır.Name = "bMağazaArttır";
             bMağazaArttır.Size = new Size(77, 36);
             bMağazaArttır.TabIndex = 11;
-            bMağazaArttır.Text = "Arttır";
+            bMağazaArttır.Text = "EKLE";
             bMağazaArttır.UseVisualStyleBackColor = false;
             bMağazaArttır.Click += bMağazaArttır_Click;
             // 
@@ -166,17 +181,17 @@
             // 
             label5.AutoSize = true;
             label5.Dock = DockStyle.Fill;
-            label5.Location = new Point(831, 0);
+            label5.Location = new Point(819, 0);
             label5.Name = "label5";
             label5.Size = new Size(117, 44);
             label5.TabIndex = 10;
-            label5.Text = "Depodan Azalt";
+            label5.Text = "Sevkiyat Tamam";
             // 
             // tbMağazaStok
             // 
-            tableLayoutPanel3.SetColumnSpan(tbMağazaStok, 2);
+            tlpSevk.SetColumnSpan(tbMağazaStok, 2);
             tbMağazaStok.Dock = DockStyle.Fill;
-            tbMağazaStok.Location = new Point(124, 3);
+            tbMağazaStok.Location = new Point(183, 3);
             tbMağazaStok.Name = "tbMağazaStok";
             tbMağazaStok.Size = new Size(160, 27);
             tbMağazaStok.TabIndex = 1;
@@ -185,7 +200,7 @@
             // tbGuncelle
             // 
             tbGuncelle.Dock = DockStyle.Fill;
-            tbGuncelle.Location = new Point(954, 3);
+            tbGuncelle.Location = new Point(942, 3);
             tbGuncelle.Name = "tbGuncelle";
             tbGuncelle.Size = new Size(169, 27);
             tbGuncelle.TabIndex = 5;
@@ -195,122 +210,325 @@
             // 
             label1.AutoSize = true;
             label1.Dock = DockStyle.Fill;
-            label1.Location = new Point(43, 0);
+            label1.Location = new Point(103, 0);
             label1.Name = "label1";
-            label1.Size = new Size(75, 44);
+            label1.Size = new Size(74, 44);
             label1.TabIndex = 6;
-            label1.Text = "Stok ";
+            label1.Text = "Depo";
             // 
             // bGüncelle
             // 
             bGüncelle.Dock = DockStyle.Fill;
-            bGüncelle.Location = new Point(954, 47);
+            bGüncelle.Location = new Point(942, 47);
             bGüncelle.Name = "bGüncelle";
             bGüncelle.Size = new Size(169, 36);
             bGüncelle.TabIndex = 15;
-            bGüncelle.Text = "Güncelle";
+            bGüncelle.Text = "SEVKİYAT TAMAM";
             bGüncelle.UseVisualStyleBackColor = true;
             bGüncelle.Click += bGüncelle_Click;
             // 
-            // tableLayoutPanel1
+            // tlpMain
             // 
-            tableLayoutPanel1.Anchor = AnchorStyles.None;
-            tableLayoutPanel1.ColumnCount = 8;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 39.6551743F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60.3448257F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 1012F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 252F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 29F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 11F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel3, 2, 4);
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 2, 1);
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 6;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 44.8275871F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 55.1724129F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 226F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 49F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 123F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(1400, 506);
-            tableLayoutPanel1.TabIndex = 18;
+            tlpMain.BackColor = SystemColors.InactiveBorder;
+            tlpMain.ColumnCount = 8;
+            tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
+            tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 978F));
+            tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 252F));
+            tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 29F));
+            tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 21F));
+            tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10F));
+            tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tlpMain.Controls.Add(tlpSevk, 2, 4);
+            tlpMain.Controls.Add(tableLayoutPanel2, 2, 1);
+            tlpMain.Controls.Add(pFiltrele, 0, 0);
+            tlpMain.Controls.Add(pFiltreleme, 2, 0);
+            tlpMain.Dock = DockStyle.Fill;
+            tlpMain.Location = new Point(0, 0);
+            tlpMain.Name = "tlpMain";
+            tlpMain.RowCount = 6;
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 40.3225822F));
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 59.6774178F));
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 255F));
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 123F));
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tlpMain.Size = new Size(1418, 605);
+            tlpMain.TabIndex = 18;
             // 
-            // tableLayoutPanel3
+            // tlpSevk
             // 
-            tableLayoutPanel3.ColumnCount = 16;
-            tableLayoutPanel1.SetColumnSpan(tableLayoutPanel3, 3);
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 66.66667F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 83F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 83F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 41F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 111F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 94F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 83F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 83F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 129F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 123F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 175F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 9F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 58F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 59F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 34F));
-            tableLayoutPanel3.Controls.Add(label1, 1, 0);
-            tableLayoutPanel3.Controls.Add(tbMağazaStok, 2, 0);
-            tableLayoutPanel3.Controls.Add(bMağazaArttır, 2, 1);
-            tableLayoutPanel3.Controls.Add(bMağazaAzalt, 3, 1);
-            tableLayoutPanel3.Controls.Add(tbSevkiyat, 7, 0);
-            tableLayoutPanel3.Controls.Add(label3, 6, 0);
-            tableLayoutPanel3.Controls.Add(bSevkiyatAzalt, 8, 1);
-            tableLayoutPanel3.Controls.Add(bSevkiyatArttır, 7, 1);
-            tableLayoutPanel3.Controls.Add(bGüncelle, 11, 1);
-            tableLayoutPanel3.Controls.Add(tbGuncelle, 11, 0);
-            tableLayoutPanel3.Controls.Add(label5, 10, 0);
-            tableLayoutPanel3.Controls.Add(bUrunEkle, 14, 0);
-            tableLayoutPanel3.Controls.Add(bUrunSil, 14, 1);
-            tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(58, 365);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 3;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50.6172829F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 49.3827171F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
-            tableLayoutPanel3.Size = new Size(1287, 117);
-            tableLayoutPanel3.TabIndex = 20;
+            tlpSevk.ColumnCount = 16;
+            tlpMain.SetColumnSpan(tlpSevk, 4);
+            tlpSevk.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tlpSevk.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 80F));
+            tlpSevk.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 83F));
+            tlpSevk.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 83F));
+            tlpSevk.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10F));
+            tlpSevk.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
+            tlpSevk.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 94F));
+            tlpSevk.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 83F));
+            tlpSevk.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 83F));
+            tlpSevk.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
+            tlpSevk.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 123F));
+            tlpSevk.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 175F));
+            tlpSevk.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 9F));
+            tlpSevk.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 58F));
+            tlpSevk.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 59F));
+            tlpSevk.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 34F));
+            tlpSevk.Controls.Add(label1, 1, 0);
+            tlpSevk.Controls.Add(tbMağazaStok, 2, 0);
+            tlpSevk.Controls.Add(bMağazaArttır, 2, 1);
+            tlpSevk.Controls.Add(bMağazaAzalt, 3, 1);
+            tlpSevk.Controls.Add(tbSevkiyat, 7, 0);
+            tlpSevk.Controls.Add(label3, 6, 0);
+            tlpSevk.Controls.Add(bSevkiyatAzalt, 8, 1);
+            tlpSevk.Controls.Add(bSevkiyatArttır, 7, 1);
+            tlpSevk.Controls.Add(bGüncelle, 11, 1);
+            tlpSevk.Controls.Add(tbGuncelle, 11, 0);
+            tlpSevk.Controls.Add(label5, 10, 0);
+            tlpSevk.Dock = DockStyle.Fill;
+            tlpSevk.Location = new Point(111, 464);
+            tlpSevk.Name = "tlpSevk";
+            tlpSevk.RowCount = 3;
+            tlpSevk.RowStyles.Add(new RowStyle(SizeType.Percent, 50.6172829F));
+            tlpSevk.RowStyles.Add(new RowStyle(SizeType.Percent, 49.3827171F));
+            tlpSevk.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            tlpSevk.Size = new Size(1274, 117);
+            tlpSevk.TabIndex = 20;
             // 
             // tableLayoutPanel2
             // 
             tableLayoutPanel2.ColumnCount = 1;
-            tableLayoutPanel1.SetColumnSpan(tableLayoutPanel2, 4);
+            tlpMain.SetColumnSpan(tableLayoutPanel2, 4);
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel2.Controls.Add(dgTablo, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(58, 42);
+            tableLayoutPanel2.Location = new Point(111, 78);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
-            tableLayoutPanel1.SetRowSpan(tableLayoutPanel2, 2);
+            tlpMain.SetRowSpan(tableLayoutPanel2, 2);
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 49.2957764F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.Size = new Size(1298, 268);
+            tableLayoutPanel2.Size = new Size(1274, 360);
             tableLayoutPanel2.TabIndex = 19;
+            // 
+            // pFiltrele
+            // 
+            tlpMain.SetColumnSpan(pFiltrele, 2);
+            pFiltrele.Controls.Add(tlpMenu);
+            pFiltrele.Dock = DockStyle.Fill;
+            pFiltrele.Location = new Point(3, 3);
+            pFiltrele.Name = "pFiltrele";
+            tlpMain.SetRowSpan(pFiltrele, 6);
+            pFiltrele.Size = new Size(102, 599);
+            pFiltrele.TabIndex = 21;
+            // 
+            // tlpMenu
+            // 
+            tlpMenu.BackColor = Color.PaleTurquoise;
+            tlpMenu.ColumnCount = 3;
+            tlpMenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.791209F));
+            tlpMenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 91.20879F));
+            tlpMenu.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10F));
+            tlpMenu.Controls.Add(button1, 1, 4);
+            tlpMenu.Controls.Add(bGuncelle, 1, 11);
+            tlpMenu.Controls.Add(bUrunSil, 1, 8);
+            tlpMenu.Controls.Add(bUrunEkle, 1, 7);
+            tlpMenu.Dock = DockStyle.Fill;
+            tlpMenu.Location = new Point(0, 0);
+            tlpMenu.Name = "tlpMenu";
+            tlpMenu.RowCount = 15;
+            tlpMenu.RowStyles.Add(new RowStyle());
+            tlpMenu.RowStyles.Add(new RowStyle());
+            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
+            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 42F));
+            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 37F));
+            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
+            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 64F));
+            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 75F));
+            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
+            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
+            tlpMenu.Size = new Size(102, 599);
+            tlpMenu.TabIndex = 0;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(11, 86);
+            button1.Name = "button1";
+            button1.Size = new Size(77, 29);
+            button1.TabIndex = 0;
+            button1.Text = "Raporlar";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // bGuncelle
+            // 
+            bGuncelle.Location = new Point(11, 386);
+            bGuncelle.Name = "bGuncelle";
+            bGuncelle.Size = new Size(77, 29);
+            bGuncelle.TabIndex = 18;
+            bGuncelle.Text = "Güncelle";
+            bGuncelle.UseVisualStyleBackColor = true;
+            bGuncelle.Click += bGuncelle_Click;
+            // 
+            // pFiltreleme
+            // 
+            pFiltreleme.BackColor = Color.Cyan;
+            tlpMain.SetColumnSpan(pFiltreleme, 4);
+            pFiltreleme.Controls.Add(tlpFiltre);
+            pFiltreleme.Dock = DockStyle.Fill;
+            pFiltreleme.Location = new Point(111, 3);
+            pFiltreleme.Name = "pFiltreleme";
+            pFiltreleme.Size = new Size(1274, 69);
+            pFiltreleme.TabIndex = 22;
+            // 
+            // tlpFiltre
+            // 
+            tlpFiltre.BackColor = Color.LightCyan;
+            tlpFiltre.ColumnCount = 10;
+            tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 36.40777F));
+            tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 63.59223F));
+            tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 119F));
+            tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 161F));
+            tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 97F));
+            tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 157F));
+            tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 95F));
+            tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 203F));
+            tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 90F));
+            tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 83F));
+            tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tlpFiltre.Controls.Add(label2, 0, 1);
+            tlpFiltre.Controls.Add(tbUrunAdi, 1, 1);
+            tlpFiltre.Controls.Add(label4, 2, 1);
+            tlpFiltre.Controls.Add(tbMarka, 3, 1);
+            tlpFiltre.Controls.Add(label6, 4, 1);
+            tlpFiltre.Controls.Add(tbRenkKodu, 5, 1);
+            tlpFiltre.Controls.Add(label7, 6, 1);
+            tlpFiltre.Controls.Add(tbEbat, 7, 1);
+            tlpFiltre.Controls.Add(bTemizle, 8, 1);
+            tlpFiltre.Dock = DockStyle.Fill;
+            tlpFiltre.Location = new Point(0, 0);
+            tlpFiltre.Name = "tlpFiltre";
+            tlpFiltre.RowCount = 3;
+            tlpFiltre.RowStyles.Add(new RowStyle(SizeType.Percent, 37.5F));
+            tlpFiltre.RowStyles.Add(new RowStyle(SizeType.Percent, 62.5F));
+            tlpFiltre.RowStyles.Add(new RowStyle(SizeType.Absolute, 13F));
+            tlpFiltre.Size = new Size(1274, 69);
+            tlpFiltre.TabIndex = 0;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Dock = DockStyle.Fill;
+            label2.Location = new Point(3, 21);
+            label2.Name = "label2";
+            label2.Size = new Size(91, 35);
+            label2.TabIndex = 4;
+            label2.Text = "Ürün adı";
+            // 
+            // tbUrunAdi
+            // 
+            tbUrunAdi.Dock = DockStyle.Fill;
+            tbUrunAdi.Location = new Point(100, 24);
+            tbUrunAdi.Name = "tbUrunAdi";
+            tbUrunAdi.Size = new Size(165, 27);
+            tbUrunAdi.TabIndex = 0;
+            tbUrunAdi.TextChanged += tbUrunAdi_TextChanged;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Dock = DockStyle.Fill;
+            label4.Location = new Point(271, 21);
+            label4.Name = "label4";
+            label4.Size = new Size(113, 35);
+            label4.TabIndex = 5;
+            label4.Text = "Marka";
+            // 
+            // tbMarka
+            // 
+            tbMarka.Location = new Point(390, 24);
+            tbMarka.Name = "tbMarka";
+            tbMarka.Size = new Size(125, 27);
+            tbMarka.TabIndex = 1;
+            tbMarka.TextChanged += tbMarka_TextChanged;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Dock = DockStyle.Fill;
+            label6.Location = new Point(551, 21);
+            label6.Name = "label6";
+            label6.Size = new Size(91, 35);
+            label6.TabIndex = 6;
+            label6.Text = "Renk Kodu";
+            // 
+            // tbRenkKodu
+            // 
+            tbRenkKodu.Location = new Point(648, 24);
+            tbRenkKodu.Name = "tbRenkKodu";
+            tbRenkKodu.Size = new Size(125, 27);
+            tbRenkKodu.TabIndex = 2;
+            tbRenkKodu.TextChanged += tbRenkKodu_TextChanged;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Dock = DockStyle.Fill;
+            label7.Location = new Point(805, 21);
+            label7.Name = "label7";
+            label7.Size = new Size(89, 35);
+            label7.TabIndex = 7;
+            label7.Text = "Ebat";
+            // 
+            // tbEbat
+            // 
+            tbEbat.Location = new Point(900, 24);
+            tbEbat.Name = "tbEbat";
+            tbEbat.Size = new Size(125, 27);
+            tbEbat.TabIndex = 3;
+            tbEbat.TextChanged += tbEbat_TextChanged;
+            // 
+            // bTemizle
+            // 
+            bTemizle.Location = new Point(1103, 24);
+            bTemizle.Name = "bTemizle";
+            bTemizle.Size = new Size(84, 29);
+            bTemizle.TabIndex = 8;
+            bTemizle.Text = "Temizle";
+            bTemizle.UseVisualStyleBackColor = true;
+            bTemizle.Click += bTemizle_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.LightGray;
-            ClientSize = new Size(1400, 506);
-            Controls.Add(tableLayoutPanel1);
+            BackColor = Color.PowderBlue;
+            ClientSize = new Size(1418, 605);
+            Controls.Add(tlpMain);
             Name = "MainForm";
-            Text = "Form1";
+            Text = "Stok Tablosu";
+            Load += MainForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgTablo).EndInit();
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel3.ResumeLayout(false);
-            tableLayoutPanel3.PerformLayout();
+            tlpMain.ResumeLayout(false);
+            tlpSevk.ResumeLayout(false);
+            tlpSevk.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
+            pFiltrele.ResumeLayout(false);
+            tlpMenu.ResumeLayout(false);
+            pFiltreleme.ResumeLayout(false);
+            tlpFiltre.ResumeLayout(false);
+            tlpFiltre.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -330,8 +548,23 @@
         private TextBox tbGuncelle;
         private Label label1;
         private Button bGüncelle;
-        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tlpMain;
         private TableLayoutPanel tableLayoutPanel2;
-        private TableLayoutPanel tableLayoutPanel3;
+        private TableLayoutPanel tlpSevk;
+        private Panel pFiltrele;
+        private TableLayoutPanel tlpMenu;
+        private Button button1;
+        private Button bGuncelle;
+        private Panel pFiltreleme;
+        private TableLayoutPanel tlpFiltre;
+        private TextBox tbUrunAdi;
+        private TextBox tbMarka;
+        private TextBox tbRenkKodu;
+        private TextBox tbEbat;
+        private Label label2;
+        private Label label4;
+        private Label label6;
+        private Label label7;
+        private Button bTemizle;
     }
 }

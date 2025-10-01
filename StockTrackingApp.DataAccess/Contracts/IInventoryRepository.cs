@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StockTrackingApp.Entities.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace StokTakip.Entities.Repository
         List<InventoryItem> GetAll();
         InventoryItem GetById(int id);
         void Add(InventoryItem item);
-        void Update(InventoryItem item);
+        void Update(UpdateInventoryItemDto dto);
         void Delete(int id);
         public void SoftDelete(int id);
         void Save();

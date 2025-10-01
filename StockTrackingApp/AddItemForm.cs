@@ -79,7 +79,7 @@ namespace StockTrackingApp
                 }
                 catch (Exception ex) { MessageBox.Show("Hata: " + ex.Message); }
             }
-               
+
 
         }
         public void clearTextBox()
@@ -95,9 +95,7 @@ namespace StockTrackingApp
 
         private void tbEbat_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar)
-     && !char.IsDigit(e.KeyChar)
-     && (e.KeyChar != 'x'))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != 'x') && (e.KeyChar != 'X'))
             {
                 e.Handled = true;
             }
@@ -116,9 +114,7 @@ namespace StockTrackingApp
 
         private void tbFiyat_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar)
-     && !char.IsDigit(e.KeyChar)
-     && (e.KeyChar != '.'))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
             {
                 e.Handled = true;
             }

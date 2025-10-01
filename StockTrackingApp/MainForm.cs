@@ -1,5 +1,7 @@
 ﻿using StockTrackingApp.Business;
+using StockTrackingApp.Utils;
 using StokTakip.Entities;
+using System.Data;
 
 namespace StockTrackingApp
 {
@@ -9,95 +11,178 @@ namespace StockTrackingApp
         private int _selectedItemId = -1;
         private int _previousRowIndex = -1; // Önceki seçili satır
 
+        private BindingSource bs;
+        private DataTable dt;
+
+        String urunSecimiMessage = "Lütfen tablodan bir ürün seçin ve adet kutusunu boş bırakmayın.";
+
 
         public MainForm(InventoryManager manager)
         {
             InitializeComponent();
             _manager = manager;
 
-            LoadForm();
+            //LoadForm();
 
         }
-   
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            LoadForm();
+            //dgTablo.ClearSelection();
+        }
+
         private void LoadForm()
         {
-            dgTablo.DataSource = null;
+            // WindowState = FormWindowState.Maximized;
+            StartPosition = FormStartPosition.CenterScreen;
 
-            // Tüm ürünleri getir
             var items = _manager.GetAllItems();
 
-            // DataGridView'e ata
-            // BindingSource ile sarıyoruz ki sıralama çalışsın
-            BindingSource bs = new BindingSource();
-            bs.DataSource = items;
+            // InventoryItem listesini DataTable'a çevir
+            SetupDataTable();
+
+            foreach (var item in items)
+            {
+                dt.Rows.Add(item.Id, item.ProductName, item.Brand, item.ColorCode,
+                    item.Size, item.ReelStock, item.QuantityInShipment,
+                    item.QuantityInStore, item.UnitPrice, item.TotalValue,
+                    item.IsDeleted, item.DeletedDate);
+            }
+
+            // BindingSource kullan
+            SetupDataGridView();
+
+            dgTablo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgTablo.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+
+            dgTablo.DataBindingComplete -= DgTablo_DataBindingComplete;
+            dgTablo.DataBindingComplete += DgTablo_DataBindingComplete;
+
+            ApplyRowStyles();
+
+        }
+
+        private void SetupDataTable()
+        {
+            dt = new DataTable();
+            dt.Columns.Add("Id", typeof(int));
+            dt.Columns.Add("ProductName", typeof(string));
+            dt.Columns.Add("Brand", typeof(string));
+            dt.Columns.Add("ColorCode", typeof(string));
+            dt.Columns.Add("Size", typeof(string));
+            dt.Columns.Add("ReelStock", typeof(int));
+            dt.Columns.Add("QuantityInShipment", typeof(int));
+            dt.Columns.Add("QuantityInStore", typeof(int));
+            dt.Columns.Add("UnitPrice", typeof(decimal));
+            dt.Columns.Add("TotalValue", typeof(decimal));
+            dt.Columns.Add("IsDeleted", typeof(bool));
+            dt.Columns.Add("DeletedDate", typeof(DateTime));
+        }
+
+        private void SetupDataGridView()
+        {
+            bs = new BindingSource();
+            bs.DataSource = dt;
             dgTablo.DataSource = bs;
 
-            // Kolon ayarları
             dgTablo.Columns["Id"].Visible = false;
             dgTablo.Columns["ProductName"].HeaderText = "Ürün Adı";
             dgTablo.Columns["Brand"].HeaderText = "Marka";
             dgTablo.Columns["ColorCode"].HeaderText = "Renk Kodu";
             dgTablo.Columns["Size"].HeaderText = "Ebat";
-            dgTablo.Columns["QuantityInStore"].HeaderText = "Mağaza Stok";
-            dgTablo.Columns["QuantityInShipment"].HeaderText = "Sevkiyat Stok";
+            dgTablo.Columns["ReelStock"].HeaderText = "Depo";
+            dgTablo.Columns["QuantityInShipment"].HeaderText = "Sevkiyatta";
+            dgTablo.Columns["QuantityInStore"].HeaderText = "Toplam Stok";
             dgTablo.Columns["UnitPrice"].HeaderText = "Birim Fiyat";
-            dgTablo.Columns["ReelStock"].HeaderText = "Reel Stok";
-            dgTablo.Columns["ReelStock"].DisplayIndex = dgTablo.Columns.Count - 1;
             dgTablo.Columns["TotalValue"].HeaderText = "Total Değer";
-            dgTablo.Columns["TotalValue"].DisplayIndex = dgTablo.Columns.Count - 1;
             dgTablo.Columns["IsDeleted"].Visible = false;
             dgTablo.Columns["DeletedDate"].Visible = false;
 
-            foreach (DataGridViewColumn col in dgTablo.Columns)
-            {
-                col.SortMode = DataGridViewColumnSortMode.Automatic;
-            }
-
-            // DataGridView’e değerleri  
-
+            dgTablo.SelectionMode = DataGridViewSelectionMode.FullRowSelect; // Tüm satır seçilsin
+            dgTablo.DefaultCellStyle.SelectionBackColor = Color.Red;         // Seçili satırın arka planı
+            dgTablo.DefaultCellStyle.SelectionForeColor = Color.White;
 
             dgTablo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgTablo.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-
-            dgTablo.DataBindingComplete -= DgTablo_DataBindingComplete; // varsa önceki eventi temizle
-            dgTablo.DataBindingComplete += DgTablo_DataBindingComplete;
         }
+        private void ApplyFilter()
+        {
+            if (bs == null) return;
+
+            List<string> filters = new List<string>();
+
+            if (!string.IsNullOrEmpty(tbUrunAdi.Text))
+                filters.Add($"ProductName LIKE '%{tbUrunAdi.Text.Replace("'", "''")}%'");
+
+            if (!string.IsNullOrEmpty(tbMarka.Text))
+                filters.Add($"Brand LIKE '%{tbMarka.Text.Replace("'", "''")}%'");
+
+            if (!string.IsNullOrEmpty(tbRenkKodu.Text))
+                filters.Add($"ColorCode LIKE '%{tbRenkKodu.Text.Replace("'", "''")}%'");
+
+            if (!string.IsNullOrEmpty(tbEbat.Text))
+                filters.Add($"Size LIKE '%{tbEbat.Text.Replace("'", "''")}%'");
+
+            bs.Filter = string.Join(" AND ", filters);
+
+            // Filtre sonrası renkleri tekrar uygula
+            DgTablo_DataBindingComplete(null, null);
+        }
+
+
+
+
         private void RefreshAfterAction()
         {
             LoadForm();
+            //ApplyRowStyles();
+            //dgTablo.ClearSelection();
+            //dgTablo.Refresh();
             _selectedItemId = -1;
         }
 
         private void DgTablo_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            ApplyRowStyles();
+
+        }
+
+        private void ApplyRowStyles()
+        {
             foreach (DataGridViewRow row in dgTablo.Rows)
             {
-                var item = row.DataBoundItem as InventoryItem;
-                if (item != null)
+                if (row.DataBoundItem is DataRowView drv)
                 {
-                    // Reel stock < 5 ise kırmızı
-                    if (item.ReelStock < 5)
+                    string productName = drv["ProductName"].ToString();
+                    int reelStock = Convert.ToInt32(drv["ReelStock"]);
+
+                    // Satır seçili değilse grup rengine göre ayarla
+                    if (row.Index != _previousRowIndex)
                     {
-                        row.Cells["ReelStock"].Style.BackColor = Color.LightCoral;
-                        row.Cells["ReelStock"].Style.ForeColor = Color.White;
+                        switch (productName)
+                        {
+                            case "Baza":
+                                row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow;
+                                row.DefaultCellStyle.ForeColor = Color.Black;
+                                break;
+                            case "Başlık":
+                                row.DefaultCellStyle.BackColor = Color.LightGreen;
+                                row.DefaultCellStyle.ForeColor = Color.Black;
+                                break;
+                            case "Yatak":
+                                row.DefaultCellStyle.BackColor = Color.LightSkyBlue;
+                                row.DefaultCellStyle.ForeColor = Color.Black;
+                                break;
+                            default:
+                                row.DefaultCellStyle.BackColor = Color.White;
+                                row.DefaultCellStyle.ForeColor = Color.Black;
+                                break;
+                        }
                     }
 
-                    // Ürün grubuna göre renk
-                    switch (item.ProductName)
-                    {
-                        case "Baza":
-                            row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow;
-                            break;
-                        case "Başlık":
-                            row.DefaultCellStyle.BackColor = Color.LightGreen;
-                            break;
-                        case "Yatak":
-                            row.DefaultCellStyle.BackColor = Color.LightSkyBlue;
-                            break;
-                    }
-
-                    // Eğer reel stock kırmızı ise, öncelik onu koru
-                    if (item.ReelStock < 5)
+                    // ReelStock < 5 ise sadece hücreyi kırmızı yap
+                    if (reelStock < 5)
                     {
                         row.Cells["ReelStock"].Style.BackColor = Color.LightCoral;
                         row.Cells["ReelStock"].Style.ForeColor = Color.White;
@@ -108,6 +193,31 @@ namespace StockTrackingApp
 
 
 
+        private void dgTablo_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            _previousRowIndex = e.RowIndex;
+
+            // Seçilen ID'yi güncelle
+            var value = dgTablo.Rows[e.RowIndex].Cells["Id"].Value;
+
+            if (value != null && value != DBNull.Value)
+            {
+                _selectedItemId = Convert.ToInt32(value);
+            }
+            else
+            {
+                _selectedItemId = 0; // boş değer atanıyor
+            }
+
+
+
+            // Renkleri tekrar uygula
+            DgTablo_DataBindingComplete(null, null);
+        }
+
+
 
         private void bMağazaArttır_Click(object sender, EventArgs e)
         {
@@ -115,17 +225,16 @@ namespace StockTrackingApp
             {
                 var quantity = int.Parse(tbMağazaStok.Text);
                 _manager.IncreaseStoreStock(_selectedItemId, quantity);
+                MessageHelper.ShowInfo("Mağaza stoğu başarıyla arttırıldı.");
                 RefreshAfterAction();
 
             }
             else
             {
-                MessageBox.Show("Lütfen tablodan bir ürün seçin ve adet kutusunu boş bırakmayın.", "Uyarı",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                ); ;
+                MessageHelper.ShowWarning(urunSecimiMessage);
             }
             tbMağazaStok.Clear();
+
         }
 
         private void tbMağazaStokArttır_KeyPress(object sender, KeyPressEventArgs e)
@@ -160,13 +269,11 @@ namespace StockTrackingApp
                 var quantity = int.Parse(tbMağazaStok.Text);
                 _manager.DecreaseStoreStock(_selectedItemId, quantity);
                 RefreshAfterAction();
+                MessageHelper.ShowInfo("Mağaza stoğu başarıyla azaltıldı.");
             }
             else
             {
-                MessageBox.Show("Lütfen tablodan bir ürün seçin ve adet kutusunu boş bırakmayın.", "Uyarı",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                ); ;
+                MessageHelper.ShowWarning(urunSecimiMessage);
             }
             tbMağazaStok.Clear();
         }
@@ -176,17 +283,15 @@ namespace StockTrackingApp
             if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbSevkiyat.Text))
             {
                 var quantity = int.Parse(tbSevkiyat.Text);
+                // _manager.DecreaseStoreStock(_selectedItemId, quantity);
                 _manager.IncreaseShipmentStock(_selectedItemId, quantity);
-                _manager.DecreaseStoreStock(_selectedItemId, quantity);
+                MessageHelper.ShowInfo("Sevkiyat stoğu başarıyla arttırıldı.");
 
                 RefreshAfterAction();
             }
             else
             {
-                MessageBox.Show("Lütfen tablodan bir ürün seçin ve adet kutusunu boş bırakmayın.", "Uyarı",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                ); ;
+                MessageHelper.ShowWarning(urunSecimiMessage);
             }
             tbSevkiyat.Clear();
         }
@@ -196,15 +301,15 @@ namespace StockTrackingApp
             if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbSevkiyat.Text))
             {
                 var quantity = int.Parse(tbSevkiyat.Text);
+                //_manager.IncreaseStoreStock(_selectedItemId, quantity);
+
                 _manager.DecreaseShipmentStock(_selectedItemId, quantity);
                 RefreshAfterAction();
+                MessageHelper.ShowInfo("Sevkiyat stoğu başarıyla azaltıldı.");
             }
             else
             {
-                MessageBox.Show("Lütfen tablodan bir ürün seçin ve adet kutusunu boş bırakmayın.", "Uyarı",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                ); ;
+                MessageHelper.ShowWarning(urunSecimiMessage);
             }
             tbSevkiyat.Clear();
         }
@@ -220,63 +325,9 @@ namespace StockTrackingApp
             }
             else
             {
-                MessageBox.Show("Lütfen tablodan bir ürün seçin ve adet kutusunu boş bırakmayın.");
+                MessageHelper.ShowWarning(urunSecimiMessage);
             }
             tbGuncelle.Clear();
-        }
-
-        private void dgTablo_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-
-            // Önceki seçili satırı eski haline döndür
-            if (_previousRowIndex >= 0 && _previousRowIndex < dgTablo.Rows.Count)
-            {
-                var prevRow = dgTablo.Rows[_previousRowIndex];
-                var prevItem = prevRow.DataBoundItem as InventoryItem;
-
-                if (prevItem != null)
-                {
-                    // Grup rengine göre ayarla
-                    switch (prevItem.ProductName)
-                    {
-                        case "Baza":
-                            prevRow.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow;
-                            prevRow.DefaultCellStyle.ForeColor = Color.Black;
-                            break;
-                        case "Başlık":
-                            prevRow.DefaultCellStyle.BackColor = Color.LightGreen;
-                            prevRow.DefaultCellStyle.ForeColor = Color.Black;
-                            break;
-                        case "Yatak":
-                            prevRow.DefaultCellStyle.BackColor = Color.LightSkyBlue;
-                            prevRow.DefaultCellStyle.ForeColor = Color.Black;
-                            break;
-                        default:
-                            prevRow.DefaultCellStyle.BackColor = Color.White;
-                            prevRow.DefaultCellStyle.ForeColor = Color.Black;
-                            break;
-                    }
-
-                    // ReelStock < 5 ise, sadece hücre rengini kırmızı yap
-                    if (prevItem.ReelStock < 5)
-                    {
-                        prevRow.Cells["ReelStock"].Style.BackColor = Color.LightCoral;
-                        prevRow.Cells["ReelStock"].Style.ForeColor = Color.White;
-                    }
-                }
-            }
-
-            // Şu anki seçili satırı renklendir (her zaman çalışır)
-            DataGridViewRow selectedRow = dgTablo.Rows[e.RowIndex];
-            selectedRow.DefaultCellStyle.BackColor = Color.Red;
-            selectedRow.DefaultCellStyle.ForeColor = Color.White;
-
-            // Seçilen ID'yi güncelle
-            _selectedItemId = Convert.ToInt32(selectedRow.Cells["Id"].Value);
-
-            // Önceki indexi güncelle
-            _previousRowIndex = e.RowIndex;
         }
 
 
@@ -297,23 +348,65 @@ namespace StockTrackingApp
         {
             if (_selectedItemId > 0)
             {
-                var result = MessageBox.Show("Seçilen ürünü silmek istediğinize emin misiniz?",
-                                             "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                var result = MessageHelper.ShowConfirm("Seçilen ürünü silmek istediğinize emin misiniz?");
                 if (result == DialogResult.Yes)
                 {
                     _manager.DeleteItem(_selectedItemId);
+                    RefreshAfterAction();
+                    MessageHelper.ShowInfo("Ürün silindi.");
+                }
+            }
+            else
+            {
+                MessageHelper.ShowWarning(urunSecimiMessage);
+
+            }
+        }
+
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ReportForm logForm = new ReportForm();
+            if (logForm.ShowDialog() == DialogResult.OK)
+            {
+                // Kaydettikten sonra tabloyu yenile
+                RefreshAfterAction();
+            }
+        }
+
+
+        private void tbUrunAdi_TextChanged(object sender, EventArgs e) => ApplyFilter();
+        private void tbMarka_TextChanged(object sender, EventArgs e) => ApplyFilter();
+        private void tbRenkKodu_TextChanged(object sender, EventArgs e) => ApplyFilter();
+        private void tbEbat_TextChanged(object sender, EventArgs e) => ApplyFilter();
+
+        private void bTemizle_Click(object sender, EventArgs e)
+        {
+            tbUrunAdi.Clear();
+            tbMarka.Clear();
+            tbRenkKodu.Clear();
+            tbEbat.Clear();
+        }
+
+        private void bGuncelle_Click(object sender, EventArgs e)
+        {
+
+            if (_selectedItemId > 0)
+            {
+                UpdateForm updateForm = new UpdateForm(_manager, _selectedItemId);
+                if (updateForm.ShowDialog() == DialogResult.OK)
+                {
                     RefreshAfterAction();
                 }
             }
             else
             {
-                MessageBox.Show("Lütfen tablodan bir ürün seçin ve adet kutusunu boş bırakmayın.", "Uyarı",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                ); ;
+                MessageHelper.ShowWarning("Lütfen güncellenecek bir ürün seçin.");
             }
         }
 
 
     }
 }
+

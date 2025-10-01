@@ -1,13 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using StokTakip.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
+using System.IO;
+using Microsoft.Extensions.Configuration.Json;
 namespace StokTakip.DataAccess
 {
     public class InventoryContext : DbContext
@@ -15,10 +10,11 @@ namespace StokTakip.DataAccess
         public DbSet<InventoryItem> InventoryItems { get; set; }
         public DbSet<InventoryLog> InventoryLogs { get; set; }
 
+     
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
-                @"Data Source = CAN\AHMETCANPC; Database = StockDb; Integrated Security = True; TrustServerCertificate = True");
+                @"Data Source = .; Database = StockDb; Integrated Security = True; TrustServerCertificate = True");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +22,7 @@ namespace StokTakip.DataAccess
             modelBuilder.Entity<InventoryItem>().HasQueryFilter(p => !p.IsDeleted);
         }
 
+        
+
     }
 }
-

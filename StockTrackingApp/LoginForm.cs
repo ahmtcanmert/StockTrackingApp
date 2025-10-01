@@ -44,7 +44,7 @@ namespace StockTrackingApp
                 );
                 return;
             }
-            if(tbName.Text.Equals("a") && tbPassword.Text.Equals("12"))
+            if (tbName.Text.Equals("a") && tbPassword.Text.Equals("12"))
             {
                 this.DialogResult = DialogResult.OK;    // ana formu aç
                 this.Close();
@@ -56,6 +56,16 @@ namespace StockTrackingApp
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
+        }
+
+        private void Çıkış_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

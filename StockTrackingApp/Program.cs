@@ -1,4 +1,5 @@
 
+using Microsoft.Extensions.Configuration;
 using StockTrackingApp;
 using StockTrackingApp.Business;
 using StockTrackingApp.DataAccess;
@@ -13,6 +14,8 @@ class Program
         Application.SetCompatibleTextRenderingDefault(false);
 
         var manager = new InventoryManager(new InventoryRepository());
+
+  
 
         // Ýlk veri ekleme
 
@@ -34,9 +37,19 @@ class Program
 
 
 
-        using (var loginForm = new LoginForm(manager))
+        //using (var loginForm = new LoginForm(manager))
+        //{
+        //    if (loginForm.ShowDialog() == DialogResult.OK)
+        //    {
+        //        // Eðer giriþ baþarýlý ise ana formu aç
+        //        Application.Run(new MainForm(manager));
+        //    }
+        //}
+
+
+        using (var mainForm = new MainForm(manager))
         {
-            if (loginForm.ShowDialog() == DialogResult.OK)
+            if (mainForm.ShowDialog() == DialogResult.OK)
             {
                 // Eðer giriþ baþarýlý ise ana formu aç
                 Application.Run(new MainForm(manager));
