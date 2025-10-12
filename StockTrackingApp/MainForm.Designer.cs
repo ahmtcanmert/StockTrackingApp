@@ -47,7 +47,7 @@
             tableLayoutPanel2 = new TableLayoutPanel();
             pFiltrele = new Panel();
             tlpMenu = new TableLayoutPanel();
-            button1 = new Button();
+            bRapor = new Button();
             bGuncelle = new Button();
             pFiltreleme = new Panel();
             tlpFiltre = new TableLayoutPanel();
@@ -334,7 +334,7 @@
             tlpMenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.791209F));
             tlpMenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 91.20879F));
             tlpMenu.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10F));
-            tlpMenu.Controls.Add(button1, 1, 4);
+            tlpMenu.Controls.Add(bRapor, 1, 4);
             tlpMenu.Controls.Add(bGuncelle, 1, 11);
             tlpMenu.Controls.Add(bUrunSil, 1, 8);
             tlpMenu.Controls.Add(bUrunEkle, 1, 7);
@@ -360,15 +360,15 @@
             tlpMenu.Size = new Size(102, 599);
             tlpMenu.TabIndex = 0;
             // 
-            // button1
+            // bRapor
             // 
-            button1.Location = new Point(11, 86);
-            button1.Name = "button1";
-            button1.Size = new Size(77, 29);
-            button1.TabIndex = 0;
-            button1.Text = "Raporlar";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            bRapor.Location = new Point(11, 86);
+            bRapor.Name = "bRapor";
+            bRapor.Size = new Size(77, 29);
+            bRapor.TabIndex = 0;
+            bRapor.Text = "Raporlar";
+            bRapor.UseVisualStyleBackColor = true;
+            bRapor.Click += bRapor_Click;
             // 
             // bGuncelle
             // 
@@ -553,7 +553,7 @@
         private TableLayoutPanel tlpSevk;
         private Panel pFiltrele;
         private TableLayoutPanel tlpMenu;
-        private Button button1;
+        private Button bRapor;
         private Button bGuncelle;
         private Panel pFiltreleme;
         private TableLayoutPanel tlpFiltre;

@@ -26,7 +26,7 @@ namespace StockTrackingApp.DataAccess
             _context.InventoryItems.Add(item);
             _context.SaveChanges();
 
-            AddLog(item.Id, "Ekleme", item.QuantityInStore, item.QuantityInShipment, 0);
+            //AddLog(item.Id, "Ekleme", item.QuantityInStore, item.QuantityInShipment, 0);
         }
 
         public void Update(UpdateInventoryItemDto dto)
@@ -58,7 +58,7 @@ namespace StockTrackingApp.DataAccess
                 _context.InventoryItems.Remove(item);
                 _context.SaveChanges();
 
-                AddLog(item.Id, "Ürün Silindi", 0, 0, 0);
+               // AddLog(item.Id, "Ürün Silindi", 0, 0, 0);
             }
         }
 
@@ -73,7 +73,7 @@ namespace StockTrackingApp.DataAccess
                 item.QuantityInStore += quantity;
                 _context.SaveChanges();
 
-                AddLog(item.Id, "Ekleme", item.QuantityInStore, item.QuantityInShipment, quantity);
+                //AddLog(item.Id, "Ekleme", item.QuantityInStore, item.QuantityInShipment, quantity);
             }
         }
 
@@ -86,7 +86,7 @@ namespace StockTrackingApp.DataAccess
                 item.QuantityInStore -= quantity;
                 _context.SaveChanges();
 
-                AddLog(item.Id, "Çıkarma", item.QuantityInStore, item.QuantityInShipment, -quantity);
+                //AddLog(item.Id, "Çıkarma", item.QuantityInStore, item.QuantityInShipment, -quantity);
             }
         }
 
@@ -99,7 +99,7 @@ namespace StockTrackingApp.DataAccess
                 item.QuantityInShipment += quantity;
                 _context.SaveChanges();
 
-                AddLog(item.Id, "Ekleme", item.QuantityInStore, item.QuantityInShipment, quantity);
+                //AddLog(item.Id, "Ekleme", item.QuantityInStore, item.QuantityInShipment, quantity);
             }
         }
 
@@ -112,7 +112,7 @@ namespace StockTrackingApp.DataAccess
                 item.QuantityInShipment -= quantity;
                 _context.SaveChanges();
 
-                AddLog(item.Id, "Çıkarma", item.QuantityInStore, item.QuantityInShipment, -quantity);
+                ////AddLog(item.Id, "Çıkarma", item.QuantityInStore, item.QuantityInShipment, -quantity);
             }
         }
 
@@ -132,7 +132,7 @@ namespace StockTrackingApp.DataAccess
             item.QuantityInShipment -= quantity;
             _context.SaveChanges();
 
-            AddLog(item.Id, "Çıkarma", item.QuantityInStore, item.QuantityInShipment, -quantity);
+            //AddLog(item.Id, "Çıkarma", item.QuantityInStore, item.QuantityInShipment, -quantity);
         }
 
         public int ReelStock(int id)
@@ -151,12 +151,13 @@ namespace StockTrackingApp.DataAccess
                 item.DeletedDate = DateTime.Now;
                 _context.SaveChanges();
 
-                AddLog(item.Id, "Ürün Soft Delete", item.QuantityInStore, item.QuantityInShipment, 0);
+                //AddLog(item.Id, "Ürün Soft Delete", item.QuantityInStore, item.QuantityInShipment, 0);
             }
         }
 
         // 🔑 Log ekleme helper metodu
-        private void AddLog(int itemId, string actionType, int storeAfter, int shipmentAfter, int quantityChanged)
+
+        public void AddLog(int itemId, string actionType, int quantityChanged)
         {
             var log = new InventoryLog
             {

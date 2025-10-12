@@ -219,23 +219,7 @@ namespace StockTrackingApp
 
 
 
-        private void bMağazaArttır_Click(object sender, EventArgs e)
-        {
-            if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbMağazaStok.Text)) // önce bir satır seçilmiş mi kontrol et
-            {
-                var quantity = int.Parse(tbMağazaStok.Text);
-                _manager.IncreaseStoreStock(_selectedItemId, quantity);
-                MessageHelper.ShowInfo("Mağaza stoğu başarıyla arttırıldı.");
-                RefreshAfterAction();
-
-            }
-            else
-            {
-                MessageHelper.ShowWarning(urunSecimiMessage);
-            }
-            tbMağazaStok.Clear();
-
-        }
+   
 
         private void tbMağazaStokArttır_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -261,74 +245,128 @@ namespace StockTrackingApp
                 e.Handled = true;
             }
         }
-
-        private void bMağazaAzalt_Click(object sender, EventArgs e)
+        private void bMağazaArttır_Click(object sender, EventArgs e)
         {
-            if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbMağazaStok.Text))
+            if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbMağazaStok.Text)) // önce bir satır seçilmiş mi kontrol et
             {
                 var quantity = int.Parse(tbMağazaStok.Text);
-                _manager.DecreaseStoreStock(_selectedItemId, quantity);
+                _manager.IncreaseStoreStock(_selectedItemId, quantity);
+                _manager.AddLog(_selectedItemId, "Urun eklendi", quantity);
+
+                MessageHelper.ShowInfo("Mağaza stoğu başarıyla arttırıldı.");
                 RefreshAfterAction();
-                MessageHelper.ShowInfo("Mağaza stoğu başarıyla azaltıldı.");
+
             }
             else
             {
                 MessageHelper.ShowWarning(urunSecimiMessage);
             }
+
             tbMağazaStok.Clear();
+
+        }
+        private void bMağazaAzalt_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbMağazaStok.Text))
+                {
+                    var quantity = int.Parse(tbMağazaStok.Text);
+                    _manager.DecreaseStoreStock(_selectedItemId, quantity);
+                    RefreshAfterAction();
+                    MessageHelper.ShowInfo("Mağaza stoğu başarıyla azaltıldı.");
+                }
+                else
+                {
+                    MessageHelper.ShowWarning(urunSecimiMessage);
+                }
+                tbMağazaStok.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void bSevkiyatArttır_Click(object sender, EventArgs e)
         {
-            if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbSevkiyat.Text))
+            try
             {
-                var quantity = int.Parse(tbSevkiyat.Text);
-                // _manager.DecreaseStoreStock(_selectedItemId, quantity);
-                _manager.IncreaseShipmentStock(_selectedItemId, quantity);
-                MessageHelper.ShowInfo("Sevkiyat stoğu başarıyla arttırıldı.");
+                if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbSevkiyat.Text))
+                {
+                    var quantity = int.Parse(tbSevkiyat.Text);
+                    _manager.IncreaseShipmentStock(_selectedItemId, quantity);
 
-                RefreshAfterAction();
+                    MessageHelper.ShowInfo("Sevkiyata sevk edildi");
+                    RefreshAfterAction();
+                }
+                else
+                {
+                    MessageHelper.ShowWarning(urunSecimiMessage);
+                }
+                tbSevkiyat.Clear();
             }
-            else
+            catch (Exception ex)
             {
-                MessageHelper.ShowWarning(urunSecimiMessage);
+                MessageBox.Show(ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tbSevkiyat.Clear();
+
             }
-            tbSevkiyat.Clear();
         }
+
 
         private void bSevkiyatAzalt_Click(object sender, EventArgs e)
         {
-            if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbSevkiyat.Text))
+            try
             {
-                var quantity = int.Parse(tbSevkiyat.Text);
-                //_manager.IncreaseStoreStock(_selectedItemId, quantity);
+                if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbSevkiyat.Text))
+                {
+                    var quantity = int.Parse(tbSevkiyat.Text);
+                    _manager.DecreaseShipmentStock(_selectedItemId, quantity);
 
-                _manager.DecreaseShipmentStock(_selectedItemId, quantity);
-                RefreshAfterAction();
-                MessageHelper.ShowInfo("Sevkiyat stoğu başarıyla azaltıldı.");
+                    MessageHelper.ShowInfo("Sevkiyat stoğu başarıyla azaltıldı.");
+                    RefreshAfterAction();
+                }
+                else
+                {
+                    MessageHelper.ShowWarning(urunSecimiMessage);
+                }
+                tbSevkiyat.Clear();
             }
-            else
+            catch (Exception ex)
             {
-                MessageHelper.ShowWarning(urunSecimiMessage);
+                MessageBox.Show(ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tbMağazaStok.Clear();
+
             }
-            tbSevkiyat.Clear();
         }
 
         private void bGüncelle_Click(object sender, EventArgs e)
         {
-            if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbGuncelle.Text))
+            try
             {
-                var quantity = int.Parse(tbGuncelle.Text);
-                _manager.DecreaseStoreStock(_selectedItemId, quantity);
-                _manager.DecreaseShipmentStock(_selectedItemId, quantity);
-                RefreshAfterAction();
+                if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbGuncelle.Text))
+                {
+                    var quantity = int.Parse(tbGuncelle.Text);
+                    _manager.CompleteOrder(_selectedItemId, quantity);
+
+                    _manager.AddLog(_selectedItemId, "Sevkiyat tamamlandı", quantity);
+                    RefreshAfterAction();
+                }
+                else
+                {
+                    MessageHelper.ShowWarning(urunSecimiMessage);
+                }
+                tbGuncelle.Clear();
             }
-            else
+            catch (Exception ex)
             {
-                MessageHelper.ShowWarning(urunSecimiMessage);
+                MessageBox.Show(ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tbMağazaStok.Clear();
+
             }
-            tbGuncelle.Clear();
         }
+
 
 
 
@@ -365,7 +403,7 @@ namespace StockTrackingApp
 
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void bRapor_Click(object sender, EventArgs e)
         {
             ReportForm logForm = new ReportForm();
             if (logForm.ShowDialog() == DialogResult.OK)

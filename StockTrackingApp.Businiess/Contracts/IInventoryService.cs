@@ -15,5 +15,6 @@ namespace StockTrackingApp.Business
         void DecreaseStoreStock(int id, int quantity);
         void IncreaseShipmentStock(int id, int quantity);
         void DecreaseShipmentStock(int id, int quantity);
+        void AddLog(int itemId, string actionType, int quantityChanged);
     }
 }

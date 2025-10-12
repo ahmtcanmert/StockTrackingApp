@@ -104,8 +104,7 @@ namespace StockTrackingApp
             dgvReport.Columns["ColorCode"].HeaderText = "Renk Kodu";
             dgvReport.Columns["Year"].HeaderText = "Yıl";
             dgvReport.Columns["Month"].HeaderText = "Ay";
-            dgvReport.Columns["Incoming"].HeaderText = "Giriş";
-            dgvReport.Columns["Outgoing"].HeaderText = "Çıkış";
+
 
             SetColumnOrder();
         }
@@ -119,7 +118,7 @@ namespace StockTrackingApp
             dgvReport.Columns["ColorCode"].DisplayIndex = index++;
             dgvReport.Columns["Year"].DisplayIndex = index++;
             dgvReport.Columns["Month"].DisplayIndex = index++;
-            dgvReport.Columns["ChangeAmount"].DisplayIndex = index++;
+            dgvReport.Columns["QuantityChanged"].DisplayIndex = index++;
         }
 
         private void bFiltre_Click(object sender, EventArgs e)

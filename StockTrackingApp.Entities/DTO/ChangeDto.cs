@@ -13,9 +13,9 @@ namespace StockTrackingApp.Entities.DTO
         public string ColorCode { get; set; }
         public int Year { get; set; }
         public int? Month { get; set; } // yıl bazlı raporda null olur
-        public int ChangeAmount { get; set; }
-        public int Incoming { get; set; }
-        public int Outgoing { get; set; }
+
+        public int QuantityChanged { get; set; }
+
 
 
     }
