@@ -1,5 +1,7 @@
-﻿using StockTrackingApp.DataAccess;
+﻿using DocumentFormat.OpenXml.Office2013.Excel;
+using StockTrackingApp.DataAccess;
 using StockTrackingApp.Entities.DTO;
+using StockTrackingApp.Utils;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -34,20 +36,7 @@ namespace StockTrackingApp
             if (cmbYear.Items.Count > 0)
                 cmbYear.SelectedIndex = 0;
         }
-        private void LoadReportByYear(int selectedYear)
-        {
-            var repo = new InventoryLogRepository();
-            var data = repo.GetYearlyChanges(selectedYear);
 
-            dgvReport.DataSource = data;
-
-            dgvReport.Columns["ProductName"].HeaderText = "Ürün Adı";
-            dgvReport.Columns["Brand"].HeaderText = "Marka";
-            dgvReport.Columns["ColorCode"].HeaderText = "Renk Kodu";
-            dgvReport.Columns["Year"].HeaderText = "Yıl";
-            dgvReport.Columns["Incoming"].HeaderText = "Gelen Ürün";
-            dgvReport.Columns["Outgoing"].HeaderText = "Çıkan Ürün";
-        }
         private void LoadMonthComboBox()
         {
             cmbMonth.Items.Clear();
@@ -85,7 +74,7 @@ namespace StockTrackingApp
             if (month.HasValue && month.Value != 0) // Ay seçilmişse
             {
                 data = repo.GetMonthlyChanges(year, month);
-               // dgvReport.Columns["Month"].Visible = true;
+                // dgvReport.Columns["Month"].Visible = true;
             }
             else if (year.HasValue) // "---" yani ay seçilmemişse
             {
@@ -104,6 +93,9 @@ namespace StockTrackingApp
             dgvReport.Columns["ColorCode"].HeaderText = "Renk Kodu";
             dgvReport.Columns["Year"].HeaderText = "Yıl";
             dgvReport.Columns["Month"].HeaderText = "Ay";
+            dgvReport.Columns["ActionType"].HeaderText = "İşlem Türü";
+            dgvReport.Columns["Incoming"].HeaderText = "Gelen Ürün";
+            dgvReport.Columns["Outgoing"].HeaderText = "Çıkan Ürün";
 
 
             SetColumnOrder();
@@ -118,7 +110,9 @@ namespace StockTrackingApp
             dgvReport.Columns["ColorCode"].DisplayIndex = index++;
             dgvReport.Columns["Year"].DisplayIndex = index++;
             dgvReport.Columns["Month"].DisplayIndex = index++;
-            dgvReport.Columns["QuantityChanged"].DisplayIndex = index++;
+            dgvReport.Columns["ActionType"].DisplayIndex = index++;
+            dgvReport.Columns["Incoming"].DisplayIndex = index++;
+            dgvReport.Columns["Outgoing"].DisplayIndex = index++;
         }
 
         private void bFiltre_Click(object sender, EventArgs e)
@@ -127,6 +121,11 @@ namespace StockTrackingApp
             int? selectedMonth = cmbMonth.SelectedItem != null ? (int?)((dynamic)cmbMonth.SelectedItem).Value : null;
 
             LoadReport(selectedYear, selectedMonth);
+        }
+
+        private void bExcel_Click(object sender, EventArgs e)
+        {
+            ExcelExporter.ExportDataGridViewToExcel(dgvReport);
         }
     }
 }

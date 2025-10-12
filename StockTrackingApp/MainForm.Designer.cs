@@ -49,6 +49,7 @@
             tlpMenu = new TableLayoutPanel();
             bRapor = new Button();
             bGuncelle = new Button();
+            bExcel = new Button();
             pFiltreleme = new Panel();
             tlpFiltre = new TableLayoutPanel();
             label2 = new Label();
@@ -338,6 +339,7 @@
             tlpMenu.Controls.Add(bGuncelle, 1, 11);
             tlpMenu.Controls.Add(bUrunSil, 1, 8);
             tlpMenu.Controls.Add(bUrunEkle, 1, 7);
+            tlpMenu.Controls.Add(bExcel, 1, 9);
             tlpMenu.Dock = DockStyle.Fill;
             tlpMenu.Location = new Point(0, 0);
             tlpMenu.Name = "tlpMenu";
@@ -379,6 +381,16 @@
             bGuncelle.Text = "Güncelle";
             bGuncelle.UseVisualStyleBackColor = true;
             bGuncelle.Click += bGuncelle_Click;
+            // 
+            // bExcel
+            // 
+            bExcel.Location = new Point(11, 336);
+            bExcel.Name = "bExcel";
+            bExcel.Size = new Size(77, 24);
+            bExcel.TabIndex = 19;
+            bExcel.Text = "Excel";
+            bExcel.UseVisualStyleBackColor = true;
+            bExcel.Click += bExcel_Click;
             // 
             // pFiltreleme
             // 
@@ -566,5 +578,6 @@
         private Label label6;
         private Label label7;
         private Button bTemizle;
+        private Button bExcel;
     }
 }

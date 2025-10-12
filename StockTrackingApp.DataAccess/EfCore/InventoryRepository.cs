@@ -89,7 +89,7 @@ namespace StockTrackingApp.DataAccess
                 //AddLog(item.Id, "Çıkarma", item.QuantityInStore, item.QuantityInShipment, -quantity);
             }
         }
-        aaa
+
         // 🚚 Sevkiyat stok artırma
         public void IncreaseShipmentStock(int id, int quantity)
         {

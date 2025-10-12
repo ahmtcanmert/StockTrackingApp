@@ -35,6 +35,7 @@
             bFiltre = new Button();
             cmbYear = new ComboBox();
             cmbMonth = new ComboBox();
+            bExcel = new Button();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvReport).BeginInit();
             panel1.SuspendLayout();
@@ -93,8 +94,8 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 238F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 49F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 86F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 521F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 348F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 193F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
@@ -103,13 +104,14 @@
             tableLayoutPanel2.Controls.Add(bFiltre, 4, 0);
             tableLayoutPanel2.Controls.Add(cmbYear, 1, 0);
             tableLayoutPanel2.Controls.Add(cmbMonth, 3, 0);
+            tableLayoutPanel2.Controls.Add(bExcel, 5, 1);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(0, 0);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 3;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 51.31579F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
             tableLayoutPanel2.Size = new Size(997, 76);
             tableLayoutPanel2.TabIndex = 0;
             // 
@@ -139,13 +141,23 @@
             cmbMonth.Size = new Size(80, 28);
             cmbMonth.TabIndex = 4;
             // 
-            // LogForm
+            // bExcel
+            // 
+            bExcel.Location = new Point(807, 39);
+            bExcel.Name = "bExcel";
+            bExcel.Size = new Size(94, 26);
+            bExcel.TabIndex = 5;
+            bExcel.Text = "Excel";
+            bExcel.UseVisualStyleBackColor = true;
+            bExcel.Click += bExcel_Click;
+            // 
+            // ReportForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1198, 450);
             Controls.Add(tableLayoutPanel1);
-            Name = "LogForm";
+            Name = "ReportForm";
             Text = "LogForm";
             Load += LogForm_Load;
             tableLayoutPanel1.ResumeLayout(false);
@@ -164,5 +176,6 @@
         private Button bFiltre;
         private ComboBox cmbYear;
         private ComboBox cmbMonth;
+        private Button bExcel;
     }
 }

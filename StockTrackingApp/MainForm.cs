@@ -2,6 +2,7 @@
 using StockTrackingApp.Utils;
 using StokTakip.Entities;
 using System.Data;
+using System.Windows.Forms;
 
 namespace StockTrackingApp
 {
@@ -219,7 +220,7 @@ namespace StockTrackingApp
 
 
 
-   
+
 
         private void tbMağazaStokArttır_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -251,7 +252,7 @@ namespace StockTrackingApp
             {
                 var quantity = int.Parse(tbMağazaStok.Text);
                 _manager.IncreaseStoreStock(_selectedItemId, quantity);
-                _manager.AddLog(_selectedItemId, "Urun eklendi", quantity);
+
 
                 MessageHelper.ShowInfo("Mağaza stoğu başarıyla arttırıldı.");
                 RefreshAfterAction();
@@ -349,8 +350,7 @@ namespace StockTrackingApp
                 {
                     var quantity = int.Parse(tbGuncelle.Text);
                     _manager.CompleteOrder(_selectedItemId, quantity);
-
-                    _manager.AddLog(_selectedItemId, "Sevkiyat tamamlandı", quantity);
+                    MessageHelper.ShowInfo("Sevkiyat Tamamlandı");
                     RefreshAfterAction();
                 }
                 else
@@ -444,7 +444,17 @@ namespace StockTrackingApp
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void bExcel_Click(object sender, EventArgs e)
+        {
+
+            ExcelExporter.ExportDataGridViewToExcel(dgTablo);
+        }
+    
     }
 }
 
