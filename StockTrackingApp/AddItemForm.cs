@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace StockTrackingApp
 {
-    public partial class AddItemForm : Form
+    public partial class AddItemForm : BaseForm
     {
         private InventoryManager _manager;
         public AddItemForm(InventoryManager manager)

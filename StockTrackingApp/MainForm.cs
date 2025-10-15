@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace StockTrackingApp
 {
-    public partial class MainForm : Form
+    public partial class MainForm : BaseForm
     {
         private InventoryManager _manager;
         private int _selectedItemId = -1;
@@ -34,8 +34,7 @@ namespace StockTrackingApp
 
         private void LoadForm()
         {
-            // WindowState = FormWindowState.Maximized;
-            StartPosition = FormStartPosition.CenterScreen;
+
 
             var items = _manager.GetAllItems();
 
@@ -196,7 +195,11 @@ namespace StockTrackingApp
 
         private void dgTablo_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0) {
+                
+                return;
+            }
+            
 
             _previousRowIndex = e.RowIndex;
 
@@ -444,10 +447,6 @@ namespace StockTrackingApp
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void bExcel_Click(object sender, EventArgs e)
         {

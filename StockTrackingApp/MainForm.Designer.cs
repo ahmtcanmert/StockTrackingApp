@@ -75,9 +75,9 @@
             // 
             bUrunSil.BackColor = Color.Red;
             bUrunSil.ForeColor = Color.White;
-            bUrunSil.Location = new Point(11, 261);
+            bUrunSil.Location = new Point(10, 261);
             bUrunSil.Name = "bUrunSil";
-            bUrunSil.Size = new Size(77, 36);
+            bUrunSil.Size = new Size(76, 36);
             bUrunSil.TabIndex = 17;
             bUrunSil.Text = "Sil";
             bUrunSil.UseVisualStyleBackColor = false;
@@ -98,9 +98,9 @@
             // 
             // bUrunEkle
             // 
-            bUrunEkle.Location = new Point(11, 197);
+            bUrunEkle.Location = new Point(10, 197);
             bUrunEkle.Name = "bUrunEkle";
-            bUrunEkle.Size = new Size(77, 38);
+            bUrunEkle.Size = new Size(76, 38);
             bUrunEkle.TabIndex = 16;
             bUrunEkle.Text = "Ekle";
             bUrunEkle.UseVisualStyleBackColor = true;
@@ -313,7 +313,7 @@
             tableLayoutPanel2.RowCount = 1;
             tlpMain.SetRowSpan(tableLayoutPanel2, 2);
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 49.2957764F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 361F));
             tableLayoutPanel2.Size = new Size(1274, 360);
             tableLayoutPanel2.TabIndex = 19;
             // 
@@ -334,7 +334,7 @@
             tlpMenu.ColumnCount = 3;
             tlpMenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.791209F));
             tlpMenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 91.20879F));
-            tlpMenu.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10F));
+            tlpMenu.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 12F));
             tlpMenu.Controls.Add(bRapor, 1, 4);
             tlpMenu.Controls.Add(bGuncelle, 1, 11);
             tlpMenu.Controls.Add(bUrunSil, 1, 8);
@@ -364,9 +364,9 @@
             // 
             // bRapor
             // 
-            bRapor.Location = new Point(11, 86);
+            bRapor.Location = new Point(10, 86);
             bRapor.Name = "bRapor";
-            bRapor.Size = new Size(77, 29);
+            bRapor.Size = new Size(76, 29);
             bRapor.TabIndex = 0;
             bRapor.Text = "Raporlar";
             bRapor.UseVisualStyleBackColor = true;
@@ -374,9 +374,9 @@
             // 
             // bGuncelle
             // 
-            bGuncelle.Location = new Point(11, 386);
+            bGuncelle.Location = new Point(10, 386);
             bGuncelle.Name = "bGuncelle";
-            bGuncelle.Size = new Size(77, 29);
+            bGuncelle.Size = new Size(76, 29);
             bGuncelle.TabIndex = 18;
             bGuncelle.Text = "Güncelle";
             bGuncelle.UseVisualStyleBackColor = true;
@@ -384,9 +384,9 @@
             // 
             // bExcel
             // 
-            bExcel.Location = new Point(11, 336);
+            bExcel.Location = new Point(10, 336);
             bExcel.Name = "bExcel";
-            bExcel.Size = new Size(77, 24);
+            bExcel.Size = new Size(76, 24);
             bExcel.TabIndex = 19;
             bExcel.Text = "Excel";
             bExcel.UseVisualStyleBackColor = true;
@@ -416,7 +416,7 @@
             tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 95F));
             tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 203F));
             tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 90F));
-            tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 83F));
+            tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 84F));
             tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tlpFiltre.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tlpFiltre.Controls.Add(label2, 0, 1);
@@ -453,7 +453,7 @@
             tbUrunAdi.Dock = DockStyle.Fill;
             tbUrunAdi.Location = new Point(100, 24);
             tbUrunAdi.Name = "tbUrunAdi";
-            tbUrunAdi.Size = new Size(165, 27);
+            tbUrunAdi.Size = new Size(164, 27);
             tbUrunAdi.TabIndex = 0;
             tbUrunAdi.TextChanged += tbUrunAdi_TextChanged;
             // 
@@ -461,7 +461,7 @@
             // 
             label4.AutoSize = true;
             label4.Dock = DockStyle.Fill;
-            label4.Location = new Point(271, 21);
+            label4.Location = new Point(270, 21);
             label4.Name = "label4";
             label4.Size = new Size(113, 35);
             label4.TabIndex = 5;
@@ -469,7 +469,7 @@
             // 
             // tbMarka
             // 
-            tbMarka.Location = new Point(390, 24);
+            tbMarka.Location = new Point(389, 24);
             tbMarka.Name = "tbMarka";
             tbMarka.Size = new Size(125, 27);
             tbMarka.TabIndex = 1;
@@ -479,7 +479,7 @@
             // 
             label6.AutoSize = true;
             label6.Dock = DockStyle.Fill;
-            label6.Location = new Point(551, 21);
+            label6.Location = new Point(550, 21);
             label6.Name = "label6";
             label6.Size = new Size(91, 35);
             label6.TabIndex = 6;
@@ -487,7 +487,7 @@
             // 
             // tbRenkKodu
             // 
-            tbRenkKodu.Location = new Point(648, 24);
+            tbRenkKodu.Location = new Point(647, 24);
             tbRenkKodu.Name = "tbRenkKodu";
             tbRenkKodu.Size = new Size(125, 27);
             tbRenkKodu.TabIndex = 2;
@@ -497,7 +497,7 @@
             // 
             label7.AutoSize = true;
             label7.Dock = DockStyle.Fill;
-            label7.Location = new Point(805, 21);
+            label7.Location = new Point(804, 21);
             label7.Name = "label7";
             label7.Size = new Size(89, 35);
             label7.TabIndex = 7;
@@ -505,7 +505,7 @@
             // 
             // tbEbat
             // 
-            tbEbat.Location = new Point(900, 24);
+            tbEbat.Location = new Point(899, 24);
             tbEbat.Name = "tbEbat";
             tbEbat.Size = new Size(125, 27);
             tbEbat.TabIndex = 3;
@@ -513,7 +513,7 @@
             // 
             // bTemizle
             // 
-            bTemizle.Location = new Point(1103, 24);
+            bTemizle.Location = new Point(1102, 24);
             bTemizle.Name = "bTemizle";
             bTemizle.Size = new Size(84, 29);
             bTemizle.TabIndex = 8;

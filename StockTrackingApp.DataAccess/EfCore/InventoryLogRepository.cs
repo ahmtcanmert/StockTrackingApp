@@ -60,6 +60,23 @@ namespace StockTrackingApp.DataAccess
                 })
                 .ToList();
         }
+        public int DeleteOldLogs()
+        {
+            var fourMonthsAgo = DateTime.Now.AddMonths(-4);
+
+            // 4 aydan eski logları bul
+            var oldLogs = _context.InventoryLogs
+                .Where(l => l.ActionDate < fourMonthsAgo)
+                .ToList();
+
+            if (oldLogs.Any())
+            {
+                _context.InventoryLogs.RemoveRange(oldLogs);
+                _context.SaveChanges();
+            }
+
+            return oldLogs.Count;
+        }
 
         public List<ChangeDto> GetYearlyChanges(int year)
         {

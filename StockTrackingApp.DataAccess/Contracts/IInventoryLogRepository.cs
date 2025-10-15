@@ -9,6 +9,7 @@ namespace StokTakip.Entities.Repository
         List<InventoryLog> GetLogs();
         List<InventoryLog> GetLogsByMonth(int year, int month);
         List<int> GetAllYears();
+        int DeleteOldLogs();
         void Save();
     }
 }

@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace StockTrackingApp
 {
-    public partial class UpdateForm : Form
+    public partial class UpdateForm : BaseForm
     {
         private readonly InventoryManager _manager;
         private readonly int _itemId;

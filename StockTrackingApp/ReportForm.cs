@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace StockTrackingApp
 {
-    public partial class ReportForm : Form
+    public partial class ReportForm : BaseForm
     {
         public ReportForm()
         {
