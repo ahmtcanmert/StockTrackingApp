@@ -1,52 +1,46 @@
-﻿using StockTrackingApp.Entities.DTO;
+﻿using StockTrackingApp.Businiess.Contracts;
+using StockTrackingApp.Entities.DTO;
 using StokTakip.Entities;
 using StokTakip.Entities.Repository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace StockTrackingApp.Business
+namespace StockTrackingApp.Business.Manager
 {
     public class InventoryLogManager : IInventoryLogService
     {
-        private readonly IInventoryLogRepository _logRepository;
+        private readonly IInventoryLogRepository _repository;
 
-        public InventoryLogManager(IInventoryLogRepository logRepository)
+        public InventoryLogManager(IInventoryLogRepository repository)
         {
-            _logRepository = logRepository;
+            _repository = repository;
         }
 
         public void AddLog(int itemId, string actionType, int quantityChanged)
         {
             var log = new InventoryLog
             {
-                Id = itemId,
+                InventoryItemId = itemId,
                 ActionType = actionType,
                 QuantityChanged = quantityChanged,
                 ActionDate = DateTime.Now
             };
-
-            _logRepository.AddLog(log);
-            _logRepository.Save();
+            _repository.AddLog(log);
+            _repository.Save();
         }
 
-        public List<InventoryLog> GetAllLogs()
+        public List<ChangeDto> GetAllLogs()
         {
-            return _logRepository.GetLogs();
+            return _repository.GetMonthlyChanges(4); // son 4 ay
         }
 
-        public List<InventoryLog> GetMonthlyChanges(int year, int month)
+        public List<ChangeDto> GetMonthlyChanges(int year, int month)
         {
-            return _logRepository.GetLogsByMonth(year, month);
+            return _repository.GetMonthlyChanges(4); // son 4 ay
         }
 
-
-        public int ClearOldLogs(int monthsAgo = 4)
+        public int ClearOldLogs(int monthsAgo)
         {
-            var cutoffDate = DateTime.Now.AddMonths(-monthsAgo);
-            return _logRepository.DeleteOldLogs();
+            return _repository.DeleteOldLogs(monthsAgo);
         }
-
-
     }
 }

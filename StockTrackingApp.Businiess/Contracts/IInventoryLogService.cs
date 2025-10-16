@@ -1,21 +1,22 @@
 ﻿using StockTrackingApp.Entities.DTO;
-using StokTakip.Entities;
 using System.Collections.Generic;
 
-namespace StockTrackingApp.Business
+namespace StockTrackingApp.Businiess.Contracts
 {
+    /// <summary>
+    /// Stok hareketleri ile ilgili servis işlemleri
+    /// </summary>
     public interface IInventoryLogService
     {
 
         void AddLog(int itemId, string actionType, int quantityChanged);
 
 
-        List<InventoryLog> GetAllLogs();
+        List<ChangeDto> GetAllLogs();
 
 
-        List<InventoryLog> GetMonthlyChanges(int year, int month);
+        List<ChangeDto> GetMonthlyChanges(int year = 0, int month = 0);
 
-
-        int ClearOldLogs(int monthsAgo = 4);
+        int ClearOldLogs(int monthsAgo);
     }
 }

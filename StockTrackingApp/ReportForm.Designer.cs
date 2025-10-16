@@ -92,8 +92,8 @@
             tableLayoutPanel2.ColumnCount = 6;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 238F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 49F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 86F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 8F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 127F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 348F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 193F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
@@ -136,9 +136,9 @@
             // cmbMonth
             // 
             cmbMonth.FormattingEnabled = true;
-            cmbMonth.Location = new Point(373, 3);
+            cmbMonth.Location = new Point(332, 3);
             cmbMonth.Name = "cmbMonth";
-            cmbMonth.Size = new Size(80, 28);
+            cmbMonth.Size = new Size(121, 28);
             cmbMonth.TabIndex = 4;
             // 
             // bExcel
@@ -159,7 +159,7 @@
             Controls.Add(tableLayoutPanel1);
             Name = "ReportForm";
             Text = "LogForm";
-            Load += LogForm_Load;
+            Load += ReportForm_Load;
             tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvReport).EndInit();
             panel1.ResumeLayout(false);

@@ -3,9 +3,9 @@ using StockTrackingApp.Entities.DTO;
 using StokTakip.DataAccess;
 using StokTakip.Entities;
 using StokTakip.Entities.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace StockTrackingApp.DataAccess
 {
@@ -17,7 +17,6 @@ namespace StockTrackingApp.DataAccess
         {
             _context = context;
         }
-        //_context.Database.EnsureCreated();
 
         public void AddLog(InventoryLog log)
         {
@@ -27,27 +26,19 @@ namespace StockTrackingApp.DataAccess
 
         public List<InventoryLog> GetLogs() => _context.InventoryLogs.ToList();
 
-        public List<InventoryLog> GetLogsByMonth(int year, int month)
+        public List<ChangeDto> GetMonthlyChanges(int? monthsAgo)
         {
-            return _context.InventoryLogs
-                .Where(l => l.ActionDate.Year == year && l.ActionDate.Month == month)
-                .ToList();
-        }
+            var fromDate = DateTime.Now.AddMonths(-monthsAgo.Value);
 
-
-        // Aylık
-        public List<ChangeDto> GetMonthlyChanges(int? year, int? month)
-        {
             return _context.InventoryLogs
-                .Where(l => (!year.HasValue || l.ActionDate.Year == year.Value) &&
-                            (!month.HasValue || l.ActionDate.Month == month.Value))
+                .Where(l => l.ActionDate >= fromDate)
                 .GroupBy(l => new
                 {
                     l.InventoryItem.ProductName,
                     l.InventoryItem.Brand,
                     l.InventoryItem.ColorCode,
-                    l.ActionDate.Year,
-                    l.ActionDate.Month
+                    l.ActionDate.Month,
+                    l.ActionDate.Year
                 })
                 .Select(g => new ChangeDto
                 {
@@ -61,13 +52,13 @@ namespace StockTrackingApp.DataAccess
                 })
                 .ToList();
         }
-        public int DeleteOldLogs()
-        {
-            var fourMonthsAgo = DateTime.Now.AddMonths(-4);
 
-            // 4 aydan eski logları bul
+        public int DeleteOldLogs(int monthsAgo)
+        {
+            var cutoff = DateTime.Now.AddMonths(-monthsAgo);
+
             var oldLogs = _context.InventoryLogs
-                .Where(l => l.ActionDate < fourMonthsAgo)
+                .Where(l => l.ActionDate < cutoff)
                 .ToList();
 
             if (oldLogs.Any())
@@ -79,42 +70,9 @@ namespace StockTrackingApp.DataAccess
             return oldLogs.Count;
         }
 
-        public List<ChangeDto> GetYearlyChanges(int year)
-        {
-            return _context.InventoryLogs
-                .Where(l => l.ActionDate.Year == year)
-                .GroupBy(l => new
-                {
-                    l.InventoryItem.ProductName,
-                    l.InventoryItem.Brand,
-                    l.InventoryItem.ColorCode
-                })
-                .Select(g => new ChangeDto
-                {
-                    ProductName = g.Key.ProductName,
-                    Brand = g.Key.Brand,
-                    ColorCode = g.Key.ColorCode,
-                    Year = year,
-                    Month = null,
-                    Incoming = g.Where(x => x.QuantityChanged > 0).Sum(x => x.QuantityChanged),
-                    Outgoing = g.Where(x => x.QuantityChanged < 0).Sum(x => -x.QuantityChanged)
-                })
-                .ToList();
-        }
-
-        public List<int> GetAllYears()
-        {
-            return _context.InventoryLogs
-                .Select(l => l.ActionDate.Year)
-                .Distinct()
-                .OrderByDescending(y => y)
-                .ToList();
-        }
-
         public void Save()
         {
             _context.SaveChanges();
         }
     }
 }
-

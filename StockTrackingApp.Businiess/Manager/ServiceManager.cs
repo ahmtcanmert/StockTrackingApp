@@ -1,4 +1,5 @@
 ﻿using StockTrackingApp.Business;
+using StockTrackingApp.Business.Manager;
 using StockTrackingApp.Businiess.Contracts;
 using StockTrackingApp.DataAccess;
 using StokTakip.DataAccess;
