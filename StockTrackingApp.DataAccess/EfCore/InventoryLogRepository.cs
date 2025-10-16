@@ -13,15 +13,16 @@ namespace StockTrackingApp.DataAccess
     {
         private readonly InventoryContext _context;
 
-        public InventoryLogRepository()
+        public InventoryLogRepository(InventoryContext context)
         {
-            _context = new InventoryContext();
-            _context.Database.EnsureCreated();
+            _context = context;
         }
+        //_context.Database.EnsureCreated();
 
         public void AddLog(InventoryLog log)
         {
             _context.InventoryLogs.Add(log);
+            _context.SaveChanges();
         }
 
         public List<InventoryLog> GetLogs() => _context.InventoryLogs.ToList();

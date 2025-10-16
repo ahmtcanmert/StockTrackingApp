@@ -1,4 +1,5 @@
 ﻿using StockTrackingApp.Business;
+using StockTrackingApp.Businiess.Contracts;
 using StockTrackingApp.Entities.DTO;
 using StockTrackingApp.Utils;
 using StokTakip.Entities;
@@ -14,12 +15,12 @@ using System.Windows.Forms;
 
 namespace StockTrackingApp
 {
-    public partial class UpdateForm : BaseForm
+    public partial class UpdateForm : Form
     {
-        private readonly InventoryManager _manager;
+        private readonly IServiceManager _manager;
         private readonly int _itemId;
 
-        public UpdateForm(InventoryManager manager, int itemId)
+        public UpdateForm(IServiceManager manager, int itemId)
         {
             InitializeComponent();
             _manager = manager;
@@ -27,7 +28,7 @@ namespace StockTrackingApp
         }
         private void UpdateForm_Load(object sender, EventArgs e)
         {
-            var item = _manager.GetItemById(_itemId);
+            var item = _manager.InventoryService.GetItemById(_itemId);
             tbUrunAdi.Text = item.ProductName;
             tbMarka.Text = item.Brand;
             tbRenkKodu.Text = item.ColorCode;
@@ -38,7 +39,7 @@ namespace StockTrackingApp
 
         private void bSave_Click(object sender, EventArgs e)
         {
-            var item = _manager.GetItemById(_itemId);
+            var item = _manager.InventoryService.GetItemById(_itemId);
             var dto = new UpdateInventoryItemDto
             {
                 Id = _itemId,
@@ -49,7 +50,7 @@ namespace StockTrackingApp
                 UnitPrice = Convert.ToDecimal(tbFiyat.Text)
             };
 
-            _manager.UpdateItem(dto);
+            _manager.InventoryService.UpdateItem(dto);
             this.DialogResult = DialogResult.OK;
             MessageHelper.ShowInfo("Başarılı");
             this.Close();

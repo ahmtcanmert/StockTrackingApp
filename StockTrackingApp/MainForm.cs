@@ -1,4 +1,5 @@
 ﻿using StockTrackingApp.Business;
+using StockTrackingApp.Businiess.Contracts;
 using StockTrackingApp.Utils;
 using StokTakip.Entities;
 using System.Data;
@@ -6,9 +7,10 @@ using System.Windows.Forms;
 
 namespace StockTrackingApp
 {
-    public partial class MainForm : BaseForm
+    public partial class MainForm : Form
     {
-        private InventoryManager _manager;
+        private readonly IServiceManager _manager;
+
         private int _selectedItemId = -1;
         private int _previousRowIndex = -1; // Önceki seçili satır
 
@@ -17,14 +19,10 @@ namespace StockTrackingApp
 
         String urunSecimiMessage = "Lütfen tablodan bir ürün seçin ve adet kutusunu boş bırakmayın.";
 
-
-        public MainForm(InventoryManager manager)
+        public MainForm(IServiceManager serviceManager)
         {
             InitializeComponent();
-            _manager = manager;
-
-            //LoadForm();
-
+            _manager = serviceManager;
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -36,7 +34,7 @@ namespace StockTrackingApp
         {
 
 
-            var items = _manager.GetAllItems();
+            var items = _manager.InventoryService.GetAllItems();
 
             // InventoryItem listesini DataTable'a çevir
             SetupDataTable();
@@ -254,7 +252,7 @@ namespace StockTrackingApp
             if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbMağazaStok.Text)) // önce bir satır seçilmiş mi kontrol et
             {
                 var quantity = int.Parse(tbMağazaStok.Text);
-                _manager.IncreaseStoreStock(_selectedItemId, quantity);
+                _manager.InventoryService.IncreaseStoreStock(_selectedItemId, quantity);
 
 
                 MessageHelper.ShowInfo("Mağaza stoğu başarıyla arttırıldı.");
@@ -276,7 +274,7 @@ namespace StockTrackingApp
                 if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbMağazaStok.Text))
                 {
                     var quantity = int.Parse(tbMağazaStok.Text);
-                    _manager.DecreaseStoreStock(_selectedItemId, quantity);
+                    _manager.InventoryService.DecreaseStoreStock(_selectedItemId, quantity);
                     RefreshAfterAction();
                     MessageHelper.ShowInfo("Mağaza stoğu başarıyla azaltıldı.");
                 }
@@ -299,7 +297,7 @@ namespace StockTrackingApp
                 if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbSevkiyat.Text))
                 {
                     var quantity = int.Parse(tbSevkiyat.Text);
-                    _manager.IncreaseShipmentStock(_selectedItemId, quantity);
+                    _manager.InventoryService.IncreaseShipmentStock(_selectedItemId, quantity);
 
                     MessageHelper.ShowInfo("Sevkiyata sevk edildi");
                     RefreshAfterAction();
@@ -326,7 +324,7 @@ namespace StockTrackingApp
                 if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbSevkiyat.Text))
                 {
                     var quantity = int.Parse(tbSevkiyat.Text);
-                    _manager.DecreaseShipmentStock(_selectedItemId, quantity);
+                    _manager.InventoryService.DecreaseShipmentStock(_selectedItemId, quantity);
 
                     MessageHelper.ShowInfo("Sevkiyat stoğu başarıyla azaltıldı.");
                     RefreshAfterAction();
@@ -352,7 +350,7 @@ namespace StockTrackingApp
                 if (_selectedItemId > 0 && !string.IsNullOrEmpty(tbGuncelle.Text))
                 {
                     var quantity = int.Parse(tbGuncelle.Text);
-                    _manager.CompleteOrder(_selectedItemId, quantity);
+                    _manager.InventoryService.CompleteOrder(_selectedItemId, quantity);
                     MessageHelper.ShowInfo("Sevkiyat Tamamlandı");
                     RefreshAfterAction();
                 }
@@ -392,7 +390,7 @@ namespace StockTrackingApp
                 var result = MessageHelper.ShowConfirm("Seçilen ürünü silmek istediğinize emin misiniz?");
                 if (result == DialogResult.Yes)
                 {
-                    _manager.DeleteItem(_selectedItemId);
+                    _manager.InventoryService.DeleteItem(_selectedItemId);
                     RefreshAfterAction();
                     MessageHelper.ShowInfo("Ürün silindi.");
                 }
@@ -408,7 +406,7 @@ namespace StockTrackingApp
 
         private void bRapor_Click(object sender, EventArgs e)
         {
-            ReportForm logForm = new ReportForm();
+            ReportForm logForm = new ReportForm(_manager);
             if (logForm.ShowDialog() == DialogResult.OK)
             {
                 // Kaydettikten sonra tabloyu yenile

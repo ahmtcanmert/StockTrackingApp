@@ -1,5 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using StockTrackingApp.Business;
+using StockTrackingApp.Businiess.Contracts;
 using StokTakip.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,15 +14,17 @@ using System.Windows.Forms;
 
 namespace StockTrackingApp
 {
-    public partial class AddItemForm : BaseForm
+    public partial class AddItemForm : Form
     {
-        private InventoryManager _manager;
-        public AddItemForm(InventoryManager manager)
+
+        private readonly IServiceManager _manager;
+
+        public AddItemForm(IServiceManager manager)
         {
             InitializeComponent();
             _manager = manager;
-
         }
+
         private bool AreTextBoxesFilled(params TextBox[] textBoxes)
         {
             foreach (var tb in textBoxes)
@@ -70,7 +73,7 @@ namespace StockTrackingApp
                     };
 
                     // Manager üzerinden ekle
-                    _manager.AddItem(newItem);
+                    _manager.InventoryService.AddItem(newItem);
                     clearTextBox();
                     MessageBox.Show("Ürün başarıyla eklendi!");
                     this.DialogResult = DialogResult.OK;

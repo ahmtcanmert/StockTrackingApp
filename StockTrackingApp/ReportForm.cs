@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Office2013.Excel;
+using StockTrackingApp.Businiess.Contracts;
 using StockTrackingApp.DataAccess;
 using StockTrackingApp.Entities.DTO;
 using StockTrackingApp.Utils;
@@ -8,11 +9,14 @@ using System.Windows.Forms;
 
 namespace StockTrackingApp
 {
-    public partial class ReportForm : BaseForm
+    public partial class ReportForm : Form
     {
-        public ReportForm()
+        private readonly IServiceManager _manager;
+
+        public ReportForm(IServiceManager manager)
         {
             InitializeComponent();
+            _manager = manager;
         }
 
         private void LogForm_Load(object sender, EventArgs e)
@@ -27,8 +31,7 @@ namespace StockTrackingApp
         {
             cmbYear.Items.Clear();
 
-            var repo = new InventoryLogRepository();
-            var years = repo.GetAllYears(); // Bu metodu repo’ya ekleyelim
+            var years = _manager.InventoryLogService.GetAllLogs(); // Bu metodu repo’ya ekleyelim
 
             foreach (var y in years)
                 cmbYear.Items.Add(y);
@@ -68,17 +71,16 @@ namespace StockTrackingApp
 
         private void LoadReport(int? year = null, int? month = null)
         {
-            var repo = new InventoryLogRepository();
             List<ChangeDto> data;
 
             if (month.HasValue && month.Value != 0) // Ay seçilmişse
             {
-                data = repo.GetMonthlyChanges(year, month);
+                data = _manager.InventoryLogService.GetMonthlyChanges(year, month);
                 // dgvReport.Columns["Month"].Visible = true;
             }
             else if (year.HasValue) // "---" yani ay seçilmemişse
             {
-                data = repo.GetYearlyChanges(year.Value);
+                data = _manager.InventoryLogService.GetYearlyChanges(year.Value);
                 //dgvReport.Columns["Month"].Visible = false;
             }
             else

@@ -1,4 +1,5 @@
-﻿using StokTakip.Entities;
+﻿using StockTrackingApp.Entities.DTO;
+using StokTakip.Entities;
 using System.Collections.Generic;
 
 namespace StokTakip.Entities.Repository

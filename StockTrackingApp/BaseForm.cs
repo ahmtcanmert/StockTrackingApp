@@ -25,6 +25,6 @@ namespace StockTrackingApp
             this.Size = new Size((int)(screen.Width * 0.9), (int)(screen.Height * 0.9));
         }
 
-       
+
     }
 }

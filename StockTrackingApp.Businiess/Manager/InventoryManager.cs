@@ -98,21 +98,8 @@ namespace StockTrackingApp.Business
             _repository.Save();
 
         }
-        //public int ReelStock(int id,int quantity) 
-        //{ 
-        //    _repository.ReduceStockFromStoreAndShipment(id, quantity);
-        //    var item=GetItemById(id);
-        //    var reelStock=item.QuantityInStore-item.QuantityInShipment;
-        //    return reelStock;
-        //}
-        public int ClearOldLogs()
-        {
-            return _repository.DeleteOldLogs();
-        }
-        public void AddLog(int itemId, string actionType,int quantityChanged)
-        {
-            _repository.AddLog(itemId, actionType, quantityChanged);
-        }
+
+     
 
 
     }
