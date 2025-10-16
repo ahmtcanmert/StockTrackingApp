@@ -33,7 +33,6 @@
             panel1 = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
             bFiltre = new Button();
-            cmbYear = new ComboBox();
             cmbMonth = new ComboBox();
             bExcel = new Button();
             tableLayoutPanel1.SuspendLayout();
@@ -102,7 +101,6 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tableLayoutPanel2.Controls.Add(bFiltre, 4, 0);
-            tableLayoutPanel2.Controls.Add(cmbYear, 1, 0);
             tableLayoutPanel2.Controls.Add(cmbMonth, 3, 0);
             tableLayoutPanel2.Controls.Add(bExcel, 5, 1);
             tableLayoutPanel2.Dock = DockStyle.Fill;
@@ -124,14 +122,6 @@
             bFiltre.Text = "Filtrele";
             bFiltre.UseVisualStyleBackColor = true;
             bFiltre.Click += bFiltre_Click;
-            // 
-            // cmbYear
-            // 
-            cmbYear.FormattingEnabled = true;
-            cmbYear.Location = new Point(86, 3);
-            cmbYear.Name = "cmbYear";
-            cmbYear.Size = new Size(151, 28);
-            cmbYear.TabIndex = 3;
             // 
             // cmbMonth
             // 
@@ -174,7 +164,6 @@
         private Panel panel1;
         private TableLayoutPanel tableLayoutPanel2;
         private Button bFiltre;
-        private ComboBox cmbYear;
         private ComboBox cmbMonth;
         private Button bExcel;
     }

@@ -352,8 +352,8 @@
             tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 37F));
             tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
             tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 64F));
-            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 75F));
-            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 61F));
+            tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 44F));
             tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
             tlpMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
@@ -384,9 +384,10 @@
             // 
             // bExcel
             // 
-            bExcel.Location = new Point(10, 336);
+            bExcel.Dock = DockStyle.Fill;
+            bExcel.Location = new Point(10, 322);
             bExcel.Name = "bExcel";
-            bExcel.Size = new Size(76, 24);
+            bExcel.Size = new Size(76, 38);
             bExcel.TabIndex = 19;
             bExcel.Text = "Excel";
             bExcel.UseVisualStyleBackColor = true;
